@@ -35,7 +35,8 @@ $ npm test
 
 Eries Trisnadi – zdumb1885@outlook.com
 
-Distributed under the MIT License. See ``LICENSE`` for more information.
+- Distributed under the MIT License.
+- See ``LICENSE`` for more information.
 
 [https://github.com/lowsprofile/soraio](https://github.com/lowsprofile/soraio)
 
