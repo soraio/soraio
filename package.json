@@ -1,0 +1,35 @@
+{
+  "name": "sora.iro",
+  "version": "0.0.1",
+  "description": "anime fansub",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "test": "mocha"
+  },
+  "keywords": [
+    "anime",
+    "fansub"
+  ],
+  "author": "Eries Trisnadi <zdumb1885@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.2",
+    "bookshelf": "^0.10.2",
+    "bookshelf-modelbase": "^2.10.1",
+    "daemonite-material": "^1.4.1",
+    "express": "^5.0.0-alpha.2",
+    "knex": "^0.12.6",
+    "method-override": "^2.3.6",
+    "moment": "^2.16.0",
+    "mysql": "^2.12.0",
+    "pug": "^2.0.0-beta6",
+    "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.2",
+    "should": "^11.1.1",
+    "supertest": "^2.0.1"
+  }
+}
