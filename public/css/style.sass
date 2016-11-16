@@ -1,0 +1,74 @@
+[class*="entry-"]
+  margin: 5px auto
+a
+  color: #8BC34A
+.table thead td, .table thead th
+  color: #333
+.table td, .table th
+  font-size: 8pt
+.page-brand .ui-content-header
+  background-color: #fff
+  background-image: url(//i.imgur.com/aUfTz61.jpg)
+  padding-bottom: 25vw
+.page-brand .ui-content-header-auth
+  padding-top: 2vw
+  padding-bottom: 2vw
+.content-heading, .page-brand .header-color-black
+  color: #212121
+.page-brand .header-transparent:before
+  background-color: #fff
+.btn-sora
+  background-color: #8BC34A
+  color: #fff !important
+.btn-flat.btn-sora
+  color: #8BC34A !important
+  background-color: transparent
+  box-shadow: none
+.form-group-label.control-focus .floating-label
+    color: #8BC34A
+.control-focus .form-control
+  &:focus
+    border-color: #8BC34A
+h4.content-heading
+  padding: 0
+  margin: 0
+h1.content-heading
+  margin-bottom: 0
+@media only screen and (max-width: 800px)
+  /* Force table to not be like tables anymore
+  #no-more-tables
+    .table td, .table th
+      font-size: 12px
+    table, thead, tbody, th, td, tr
+      display: block
+    thead tr
+      position: absolute
+      top: -9999px
+      left: -9999px
+    tr
+      border: 1px solid #ccc
+      margin: 3vw
+    td
+      /* Behave  like a "row"
+      border: none
+      border-bottom: 1px solid #eee
+      position: relative
+      padding-left: 50%
+      white-space: normal
+      text-align: left
+      &:before
+        /* Now like a table header
+        position: absolute
+        /* Top/left values mimic padding
+        top: 13px
+        left: 6px
+        width: 45%
+        padding-right: 10px
+        white-space: nowrap
+        text-align: left
+        font-size: 12px
+        font-weight: bold
+        content: attr(data-title)
+  /* Hide table headers (but not display: none;, for accessibility)
+  /*
+   *Label the data
