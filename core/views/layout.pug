@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+  head
+    include partials/meta
+    title
+      if title
+        = title + ' | ' + site
+      else
+        = site
+    // css
+    include partials/style
+    // Custom css
+    block customcss
+    // favicon
+    // ...
+  body.page-brand
+    include partials/header
+    include partials/menu
+    include partials/content
+    include partials/footer
+    if message
+      include partials/notif
+    // js
+    include partials/script
+    // Custom js
+    block customjs

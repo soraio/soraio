@@ -1,0 +1,33 @@
+doctype html
+html(lang="en")
+  head
+    include partials/meta
+    title
+      if title
+        = title + ' | ' + site
+      else
+        = site
+    // css
+    include partials/style
+    // Custom css
+    block customcss
+    // favicon
+    // ...
+  body.page-brand
+    main.content
+      .content-header.ui-content-header.ui-content-header-auth
+        .container
+          .row
+            .col-md-8.col-md-offset-2.col-xs-12
+              h1.content-heading site
+              h4.content-heading irc
+      .container
+        body
+    include partials/footer
+    #if message
+    include partials/notif
+    /if
+    // js
+    include partials/script
+    // Custom js
+    block customjs

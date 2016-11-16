@@ -1,0 +1,21 @@
+main.content
+  .content-header.ui-content-header
+    .container
+      .row
+        .col-md-8.col-md-offset-2.col-xs-12
+          h1.content-heading= site
+          h4.content-heading= irc
+  .container
+    .row
+      .col-md-8.col-md-offset-2.col-xs-12
+        section.content-inner.margin-top-no
+          .card
+            .card-main
+              .card-inner.margin-bottom-no
+                block body
+              .card-action
+                .card-action-btn.pull-right
+                  a.btn.btn-flat.waves-attach(href="javascript:void(0)")
+                    span.icon chevron_left
+                  a.btn.btn-flat.waves-attach(href="javascript:void(0)")
+                    span.icon chevron_right

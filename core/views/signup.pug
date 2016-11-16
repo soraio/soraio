@@ -1,0 +1,66 @@
+.row
+  .col-lg-4.col-lg-push-4.col-sm-6.col-sm-push-3
+    section.content-inner
+      .card
+        .card-main
+          .card-header
+            .card-inner
+              h1.card-heading Create an Account
+          .card-inner
+            form.form(action="/auth/signup", method="post")
+              .row
+                .form-group.form-group-label
+                  .col-md-5.col-md-push-1
+                    label.floating-label(for="ui_signup_firstname") First Name
+                    input#ui_signup_firstname.form-control(type="text", name="firstName")
+                .form-group.form-group-label
+                  .col-md-5.col-md-push-1
+                    label.floating-label(for="ui_signup_lastname") Last Name
+                    input#ui_signup_lastname.form-control(type="text", name="lastName")
+              .form-group.form-group-label
+                .row
+                  .col-md-10.col-md-push-1
+                    label.floating-label(for="ui_signup_email") Input your email address
+                    input#ui_signup_email.form-control(type="email", name="email")
+              .form-group.form-group-label
+                .row
+                  .col-md-10.col-md-push-1
+                    label.floating-label(for="ui_signup_username") Create your username
+                    input#ui_signup_username.form-control(type="text", name="username")
+              .form-group.form-group-label
+                .row
+                  .col-md-10.col-md-push-1
+                    label.floating-label(for="ui_signup_password") Create a password
+                    input#ui_signup_password.form-control(type="password", name="password")
+              .form-group.form-group-label
+                .row
+                  .col-md-10.col-md-push-1
+                    label.floating-label(for="ui_signup_copassword") Confirm password
+                    input#ui_signup_copassword.form-control(type="password", name="copassword")
+              .form-group.form-group-label
+                .row
+                  .col-md-10.col-md-push-1
+                    label.floating-label(for="ui_signup_birth") Birthday
+                    input#ui_signup_birth.form-control(type="text", name="birth")
+              .form-group
+                .row
+                  .col-md-10.col-md-push-1
+                    button.btn.btn-block.btn-sora.waves-attach.waves-effect(type="submit") Sign Up
+              .form-group
+                .row
+                  .col-md-10.col-md-push-1
+                    hr
+                    .checkbox-adv.text-center
+                      label(for="ui_signup_agree")
+                        By clicking "Sign Up", you agree to our terms of service and privacy policy. We'll occasionally send you account related emails.
+                    hr
+                    .checkbox-adv
+                      .row
+                        label.col-md-8
+                          Already have an account?
+                        label.col-md-4.text-right
+                          a(href="/auth/login") Sign In
+              input(type="hidden", name="_csrf", value="csrfToken")
+      .clearfix
+        p.margin-no-top.text-center
+          a.btn.btn-flat.btn-sora.waves-attach(href="javascript:void(0)") Learn more about why we ask for this information.

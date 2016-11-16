@@ -1,0 +1,41 @@
+header.header.header-transparent.header-color-black.header-waterfall.ui-header
+  ul.nav.nav-list.pull-left
+    li
+      a(data-toggle="menu", href="#ui_menu")
+        span.icon.icon-lg menu
+  a.header-logo.header-affix-hide.margin-left-no.margin-right-no(data-offset-top="213", data-spy="affix", href="")= site
+  span.header-logo.header-affix.margin-left-no.margin-right-no(data-offset-top="213", data-spy="affix")= site
+  ul.nav.nav-list.pull-right
+    li.dropdown.margin-right
+      a.dropdown-toggle.padding-left-no.padding-right-no(data-toggle="dropdown")
+        if user
+          span.access-hide user.firstName user.lastName
+          span.avatar.avatar-sm
+            img(avatar="user.firstName user.lastName")
+        else
+          span.avatar.avatar-sm
+            img(alt="Guest", src="/node_modules/daemonite-material/images/users/avatar-001.jpg")
+      ul.dropdown-menu.dropdown-menu-right
+        if user
+          li
+            a.padding-right-lg.waves-attach(href="javascript:void(0)")
+              span.icon.icon-lg.margin-right verified_user
+                span Hi,
+                strong user.firstName user.lastName
+          li
+            a.padding-right-lg.waves-attach(href="javascript:void(0)")
+              span.icon.icon-lg.margin-right add_to_photos
+              Upload Photo
+          li
+            a.padding-right-lg.waves-attach(href="authlogout")
+              span.icon.icon-lg.margin-right exit_to_app
+              | Logout
+        else
+          li
+            a.padding-right-lg.waves-attach(href="authsignup")
+              span.icon.icon-lg.margin-right perm_identity
+              | Create an Account
+          li
+            a.padding-right-lg.waves-attach(href="authlogin")
+              span.icon.icon-lg.margin-right exit_to_app
+              | Sign In
