@@ -11,7 +11,7 @@ header.header.header-transparent.header-color-black.header-waterfall.ui-header
         if user
           span.access-hide user.firstName user.lastName
           span.avatar.avatar-sm
-            img(avatar="user.firstName user.lastName")
+            img(avatar=user.firstName + ' ' + user.lastName)
         else
           span.avatar.avatar-sm
             img(alt="Guest", src="/node_modules/daemonite-material/images/users/avatar-001.jpg")
@@ -20,22 +20,23 @@ header.header.header-transparent.header-color-black.header-waterfall.ui-header
           li
             a.padding-right-lg.waves-attach(href="javascript:void(0)")
               span.icon.icon-lg.margin-right verified_user
-                span Hi,
-                strong user.firstName user.lastName
+              span= 'Hi, '
+                strong
+                = user.firstName + ' ' + user.lastName
           li
             a.padding-right-lg.waves-attach(href="javascript:void(0)")
               span.icon.icon-lg.margin-right add_to_photos
               Upload Photo
           li
-            a.padding-right-lg.waves-attach(href="authlogout")
+            a.padding-right-lg.waves-attach(href="/auth/logout")
               span.icon.icon-lg.margin-right exit_to_app
               | Logout
         else
           li
-            a.padding-right-lg.waves-attach(href="authsignup")
+            a.padding-right-lg.waves-attach(href="/auth/signup")
               span.icon.icon-lg.margin-right perm_identity
               | Create an Account
           li
-            a.padding-right-lg.waves-attach(href="authlogin")
+            a.padding-right-lg.waves-attach(href="/auth/login")
               span.icon.icon-lg.margin-right exit_to_app
               | Sign In

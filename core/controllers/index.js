@@ -13,7 +13,7 @@ IndexController.route('/')
 .get(function(req, res, next) {
   Post.fetchAll({withRelated: ['user'], require: true})
   .then(function(posts){
-    res.render('index', {posts: posts.toJSON()})
+    res.render('index', {user: req.user, posts: posts.toJSON()})
   })
   .catch(function(err) {
     next()

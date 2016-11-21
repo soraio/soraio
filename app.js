@@ -3,7 +3,6 @@
 /**
  * Module dependencies.
  */
-
 var app = require('./lib/server')
 var debug = require('debug')('soraio:server')
 var http = require('http')

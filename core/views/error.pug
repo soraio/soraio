@@ -1,4 +1,7 @@
-h1 errstat - errmsg
-if error.stack
-  pre.
-    error.stack
+extends layout.pug
+
+block body
+  h1= error.status + ' - ' + error.message
+  if error
+    pre
+      = error.stack

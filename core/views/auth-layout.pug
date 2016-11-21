@@ -19,14 +19,13 @@ html(lang="en")
         .container
           .row
             .col-md-8.col-md-offset-2.col-xs-12
-              h1.content-heading site
-              h4.content-heading irc
+              h1.content-heading= site
+              h4.content-heading= irc
       .container
-        body
+        block body
     include partials/footer
-    #if message
-    include partials/notif
-    /if
+    if message
+      include partials/notif
     // js
     include partials/script
     // Custom js

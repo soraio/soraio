@@ -19,7 +19,7 @@ block body
                 a(href="https://sorairo.fansubs.pw/posts/217", title="Tales of Zestiria the X – 02")= post.title
                 = ' / '
                 span.dt-rls Released on
-                = ' ' + moment(post.created_at).toNow()
+                = ' ' + moment(post.created_at).fromNow()
               td.text-right(data-title="Links")
                 a(href="http://ddls.ghosted.xyz/?dir=Tales%20of%20Zestiria%20the%20X", title="http://ddls.ghosted.xyz/?dir=Tales%20of%20Zestiria%20the%20X", onclick="strls(300,217)", target="_blank") DDL
                 = ' / '
