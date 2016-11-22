@@ -1,7 +1,7 @@
 extends layout.pug
 
 block body
-  h1= error.status + ' - ' + error.message
-  if error
+  h3= error.status + ' - ' + error.message
+  if error.stack
     pre
       = error.stack
