@@ -6,6 +6,7 @@ var express = require('express'),
     path = require('path'),
     IndexController = require('./controllers/index'),
     AuthController = require('./controllers/auth'),
+    DashboardController = require('./controllers/dashboard'),
     csrf = require('csurf')
 
 /**
@@ -22,6 +23,10 @@ route.use('/', IndexController)
 
 // Secure section, needs authenticated user to access this rules
 route.use('/backend[\/]?*', ensureAuthenticated)
+route.get('(\/+(wp-)?admin)|(\/+dashboad)|(\/+backend)', ensureAuthenticated, function(req, res, next){
+  res.redirect('/backend/dashboard')
+})
+route.use('/backend/dashboard', DashboardController)
 
 // Secure section, needs csrftoken to access this rules
 route.use(csrf({ cookie: true }))
