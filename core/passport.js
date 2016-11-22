@@ -1,10 +1,9 @@
 // Databases
-var config = require('../conf/config'),
-    knex = require('knex')(require('../knexfile')[config.environment]),
-    LocalStrategy   = require('passport-local').Strategy,
+var LocalStrategy = require('passport-local').Strategy,
     bcrypt = require('bcrypt'),
     passport = require('passport'),
-    salt = bcrypt.genSaltSync(10)
+    salt = bcrypt.genSaltSync(10),
+    User = require('./models/user')
 
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
@@ -13,9 +12,11 @@ var config = require('../conf/config'),
 
   // used to deserialize the user
   passport.deserializeUser(function(id, done) {
-      knex('users').where('id', id).asCallback(function(err, rows) {
-        done(err, rows[0])
-      })
+    User.findById({id: id}).then(function(user){
+      done(null, user.toJSON())
+    }).catch(function(err){
+      done(err)
+    })
   })
 
   // signup
@@ -39,26 +40,32 @@ var config = require('../conf/config'),
                 lastName: req.body.lastName,
                 email: req.body.email,
                 birth: new Date(req.body.birth),
-                level: 1,
+                levelas: 1,
                 remember_token: null
             }
             // find a user whose username is the same as the forms username
             // we are checking to see if the user trying to sign up already exists
-            knex('users').where('username', username).orWhere('email', newUser.email).asCallback(function(err, rows) {
-                if (err)
-                    return done(err)
-                if (rows.length) {
-                    return done(null, false, req.flash('signupMessage', 'That username or email has already taken.'))
-                } else {
-                    // if there is no user with that username
-                    // create the user
-                    knex('users').insert(newUser)
-                    .returning('id')
-                    .then(function (id) {
-                      newUser.id = id[0]
-                      return done(null, newUser)
-                    })
-                }
+            User.findOne({username: username})
+            .then(function(user){
+              done(null, false, req.flash('signupMessage', 'The username has already taken.'))
+            })
+            .catch(function(err){
+              User.findOne({email: newUser.email})
+              .then(function(user){
+                done(null, false, req.flash('signupMessage', 'The email has already used by another username.'))
+              })
+              .catch(function(){
+                User.create(newUser)
+                .then(function(user){
+                  done(null, false, req.flash('signupMessage', user.id))
+                })
+                .catch(function(err){
+                  err.status = 500
+                  err.stack = err.message
+                  err.message = 'Couldn\'t create to the user database.'
+                  done(err)
+                })
+              })
             })
         })
       )
