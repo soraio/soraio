@@ -80,20 +80,17 @@ var LocalStrategy = require('passport-local').Strategy,
           passReqToCallback : true // allows us to pass back the entire request to the callback
       },
       function(req, username, password, done) { // callback with email and password from our form
-        knex('users').where('username', username).asCallback(function(err, rows) {
-              if (err)
-                  return done(err)
-              if (!rows.length) {
-                  return done(null, false, req.flash('loginMessage', 'No user found.')) // req.flash is the way to set flashdata using connect-flash
-              }
+        User.findOne({username: username})
+        .then(function(user){
+          if(!bcrypt.compareSync(password, user.toJSON().password))
+            return done(null, false, req.flash('loginMessage', 'Oops! The username and password doesn\'t match.')) // create the loginMessage and save it to session as flashdata
 
-              // if the user is found but the password is wrong
-              if (!bcrypt.compareSync(password, rows[0].password))
-                  return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')) // create the loginMessage and save it to session as flashdata
-
-              // all is well, return successful user
-              return done(null, rows[0])
-          })
+          // all is well, return successful user
+          return done(null, user.toJSON())
+        })
+        .catch(function(err){
+          return done(null, false, req.flash('loginMessage', 'No user found.')) // req.flash is the way to set flashdata using connect-flash
+        })
       })
   )
 
