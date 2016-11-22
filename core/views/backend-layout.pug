@@ -1,0 +1,190 @@
+doctype html
+html.no-js(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="x-ua-compatible", content="ie=edge")
+    title= site
+    meta(name="description", content="Sora Iro Fansubs - Dashboard")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="apple-touch-icon", href="apple-touch-icon.png")
+    link(rel="stylesheet", href="/css/vendor.css")
+    link(rel="stylesheet", href="/css/app.css")
+    style(type="text/css").
+      .jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}
+  body
+    .main-wrapper
+      #app.app.sidebar-fixed
+        header.header
+          .header-block.header-block-collapse.hidden-lg-up
+            button#sidebar-collapse-btn.collapse-btn
+              i.fa.fa-bars
+          .header-block.header-block-nav
+            ul.nav-profile
+              li.profile.dropdown
+                a.nav-link.dropdown-toggle(data-toggle="dropdown", href="#", role="button", aria-haspopup="true", aria-expanded="false")
+                  img.img(avatar=user.firstName + ' ' + user.lastName)
+                  span.name
+                    = user.firstName + ' ' + user.lastName
+                .dropdown-menu.profile-dropdown-menu.animated.flipInX(aria-labelledby="dropdownMenu1")
+                  a.dropdown-item(href="javascript:void(0)")
+                    i.fa.fa-user.icon
+                    |  Profile
+                  a.dropdown-item(href="javascript:void(0)")
+                    i.fa.fa-bell.icon
+                    |  Notifications
+                  a.dropdown-item(href="javascript:void(0)")
+                    i.fa.fa-gear.icon
+                    |  Settings
+                  a.dropdown-item(href="/auth/logout")
+                    i.fa.fa-power-off.icon
+                    |  Logout
+        aside.sidebar
+          .sidebar-container
+            .sidebar-header
+              .brand
+                .logo
+                  span.l.l1
+                  span.l.l2
+                  span.l.l3
+                  span.l.l4
+                  span.l.l5
+                = site
+            nav.menu
+              ul#sidebar-menu.nav.metismenu
+                li.active
+                  a(href="javascript:void(0)")
+                    i.fa.fa-home
+                    | Dashboard
+                li
+                  a(href="javascript:void(0)")
+                    i.fa.fa-pencil-square-o
+                    | Create a New Post
+                li
+                  a(href="javascript:void(0)")
+                    i.fa.fa-files-o
+                    | Posts
+                    i.fa.arrow
+                  ul.collapse(style="height: 0px;")
+                    li
+                      a(href="javascript:void(0)")
+                        | Your Posts
+                    li
+                      a(href="javascript:void(0)")
+                        | All Posts
+                li
+                  a(href="javascript:void(0)")
+                    i.fa.fa-file-text-o
+                    |  Pages
+                    i.fa.arrow
+                  ul.collapse(style="height: 0px;")
+                    li
+                      a(href="javascript:void(0)")
+                        | Create a New Page
+                    li
+                      a(href="javascript:void(0)")
+                        | All Pages
+                li
+                  a(href="javascript:void(0)")
+                    i.fa.fa-ellipsis-h
+                    |  Projects
+                    i.fa.arrow
+                  ul.collapse(style="height: 0px;")
+                    li
+                      a(href="javascript:void(0)")
+                        | Create a New Projects
+                    li
+                      a(href="javascript:void(0)")
+                        | All Projects
+                li
+                  a(href="javascript:void(0)")
+                    i.fa.fa-users
+                    | Users
+                    i.fa.arrow
+                  ul.collapse(style="height: 0px;")
+                    li
+                      a(href="javascript:void(0)")
+                        | Create a New User
+                    li
+                      a(href="javascript:void(0)")
+                        | All Users
+                li
+                  a(href="javascript:void(0)")
+                    i.fa.fa-gears
+                    | Settings
+        #sidebar-overlay.sidebar-overlay
+        article.content.dashboard-page
+          block body
+        footer.footer
+          .footer-block.github
+            a(href="javascript:void(0)")
+              i.fa.fa-github-alt
+              span.hidden-sm-down
+                |  About
+              span.hidden-md-up= ' ' + site
+          .footer-block.author
+            ul
+              li
+                | &copy;
+                a(href="/")= site
+                | , 2012 - 2016
+              li
+                a(href="/") MIT License
+        #modal-media.modal.fade
+          .modal-dialog.modal-lg
+            .modal-content
+              .modal-header
+                button.close(type="button", data-dismiss="modal", aria-label="Close")
+                  span(aria-hidden="true") ×
+                  span.sr-only Close
+                h4.modal-title Media Library
+              .modal-body.modal-tab-container
+                ul.nav.nav-tabs.modal-tabs(role="tablist")
+                  li.nav-item
+                    a.nav-link(href="#gallery", data-toggle="tab", role="tab") Gallery
+                  li.nav-item
+                    a.nav-link.active(href="#upload", data-toggle="tab", role="tab") Upload
+                .tab-content.modal-tab-content
+                  #gallery.tab-pane.fade(role="tabpanel")
+                    .images-container
+                      .row
+                  #upload.tab-pane.fade.active.in(role="tabpanel")
+                    .upload-container
+                      #dropzone
+                        form#demo-upload.dropzone.needsclick.dz-clickable(action="/", method="POST", enctype="multipart/form-data")
+                          .dz-message-block
+                            .dz-message.needsclick  Drop files here or click to upload.
+              .modal-footer
+                button.btn.btn-secondary(type="button", data-dismiss="modal") Close
+                button.btn.btn-primary(type="button") Insert Selected
+        #confirm-modal.modal.fade
+          .modal-dialog(role="document")
+            .modal-content
+              .modal-header
+                button.close(type="button", data-dismiss="modal", aria-label="Close")
+                  span(aria-hidden="true") ×
+                h4.modal-title
+                  i.fa.fa-warning
+                  | Alert
+              .modal-body
+                p Are you sure want to do this?
+              .modal-footer
+                button.btn.btn-primary(type="button", data-dismiss="modal") Yes
+                button.btn.btn-secondary(type="button", data-dismiss="modal") No
+    #ref.ref
+      .color-primary
+      .chart
+        .color-primary
+        .color-secondary
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js")
+    script(src="/js/vendor.js")
+    script(src="/js/app.js")
+    script(src="/js/letterAvatar.js")
+    .responsive-bootstrap-toolkit
+      .device-xs.hidden-sm-up
+      .device-sm.hidden-xs-down.hidden-md-up
+      .device-md.hidden-sm-down.hidden-lg-up
+      .device-lg.hidden-md-down.hidden-xl-up
+      .device-xl.hidden-lg-down
+    .jqvmap-label(style="display: none; left: 325px; top: 213px;") Indonesia
+    input.dz-hidden-input(multiple="multiple", style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;", type="file")
+    .jqvmap-label(style="display: none; left: 325px; top: 213px;") Indonesia
