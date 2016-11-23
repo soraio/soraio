@@ -6,3 +6,38 @@ block body
       span.sparkline.bar(data-type="bar")
   form(name="item")
     .card.card-block
+      .form-group.row
+        label.col-sm-2.form-control-label.text-xs-right(for="post-title") Title:
+        .col-sm-10
+          input.form-control.underlined(type="text", name="post-title", placeholder="Some title here ...")
+      .form-group.row
+        label.col-sm-2.form-control-label.text-xs-right(for="post-anime") Project:
+        .col-sm-10
+          select.c-select.form-control.underlined(name="post-anime")
+            option(selected) Choose an Anime
+            option(value="1") Anime 1
+            option(value="2") Anime 2
+      .form-group.row
+        label.col-sm-2.form-control-label.text-xs-right(for="post-content") Content:
+        .col-sm-10
+          textarea#simplemde-npm(name="post-content")
+          script.
+            var simplemde = new SimpleMDE({ element: document.getElementById("simplemde-npm"), forceSync: true, placeholder: "Type some descriptions here ...", spellChecker: false });
+            simplemde.codemirror.on("change", function(){
+                console.log(simplemde.value());
+            });
+      .form-group.row
+        .col-sm-10.col-sm-offset-2
+          label
+            input.radio.squared(name="squared-radios", checked="checked", type="radio")
+            span Publish
+          label
+            input.radio.squared(name="squared-radios", type="radio")
+            span Draft
+      .form-group.row
+        .col-sm-10.col-sm-offset-2
+          .row
+            .col-sm-2
+              button.form-control.btn.btn-primary(type="submit") Save
+            .col-sm-2
+              a.form-control.btn.btn-danger(href="/backend/dashboard") Cancel

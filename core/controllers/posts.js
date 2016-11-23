@@ -5,7 +5,7 @@ var express = require('express'),
     PostsController = express.Router()
 
 /**
-  * GET /backend/posts rules.
+  * GET /backend/posts/add rules.
   */
 PostsController.route('/add')
 .get(function(req, res, next) {
