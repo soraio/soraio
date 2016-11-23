@@ -27,6 +27,7 @@ route.get('(\/+(wp-)?admin)|(\/+dashboad)|(\/+backend)', ensureAuthenticated, fu
   res.redirect('/backend/dashboard')
 })
 route.use('/backend/dashboard', DashboardController)
+route.use('/backend/posts', Posts)
 
 // Secure section, needs csrftoken to access this rules
 route.use(csrf({ cookie: true }))

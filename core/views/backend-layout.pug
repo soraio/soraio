@@ -111,6 +111,68 @@ html.no-js(lang="en")
                   a(href="javascript:void(0)")
                     i.fa.fa-gears
                     | Settings
+          footer.sidebar-footer
+            ul#customize-menu.nav.metismenu
+              li
+                ul.collapse(style="height: 0px;")
+                  li.customize
+                    .customize-item
+                      .row.customize-header
+                        .col-xs-4
+                        .col-xs-4
+                          label.title fixed
+                        .col-xs-4
+                          label.title static
+                      .row.hidden-md-down
+                        .col-xs-4
+                          label.title Sidebar:
+                        .col-xs-4
+                          label
+                            input.radio(name="sidebarPosition", value="sidebar-fixed", type="radio")
+                            span
+                        .col-xs-4
+                          label
+                            input.radio(name="sidebarPosition", value="", type="radio")
+                            span
+                      .row
+                        .col-xs-4
+                          label.title Header:
+                        .col-xs-4
+                          label
+                            input.radio(name="headerPosition", value="header-fixed", type="radio")
+                            span
+                        .col-xs-4
+                          label
+                            input.radio(name="headerPosition", value="", type="radio")
+                            span
+                      .row
+                        .col-xs-4
+                          label.title Footer:
+                        .col-xs-4
+                          label
+                            input.radio(name="footerPosition", value="footer-fixed", type="radio")
+                            span
+                        .col-xs-4
+                          label
+                            input.radio(name="footerPosition", value="", type="radio")
+                            span
+                    .customize-item
+                      ul.customize-colors
+                        li
+                          span.color-item.color-red(data-theme="red")
+                        li
+                          span.color-item.color-orange(data-theme="orange")
+                        li
+                          span.color-item.color-green.active(data-theme="")
+                        li
+                          span.color-item.color-seagreen(data-theme="seagreen")
+                        li
+                          span.color-item.color-blue(data-theme="blue")
+                        li
+                          span.color-item.color-purple(data-theme="purple")
+                a(href="")
+                  i.fa.fa-cog
+                  |  Customize
         #sidebar-overlay.sidebar-overlay
         article.content.dashboard-page
           block body
