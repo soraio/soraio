@@ -15,8 +15,9 @@ block body
         .col-sm-10
           select.c-select.form-control.underlined(name="post-anime")
             option(selected) Choose an Anime
-            option(value="1") Anime 1
-            option(value="2") Anime 2
+            if projects
+              for project in projects
+                option(value=project.id)= project.title
       .form-group.row
         label.col-sm-2.form-control-label.text-xs-right(for="post-content") Content:
         .col-sm-10
