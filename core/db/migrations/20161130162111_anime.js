@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('title')
     table.string('type')
     table.string('producer')
+    table.string('cover')
     table.integer('episode')
     table.string('source')
     table.text('synopsis')

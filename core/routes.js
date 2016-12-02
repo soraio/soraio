@@ -8,6 +8,7 @@ var express = require('express'),
     AuthController = require('./controllers/auth'),
     DashboardController = require('./controllers/dashboard'),
     PostsController = require('./controllers/posts'),
+    ProjectsController = require('./controllers/projects'),
     csrf = require('csurf')
 
 /**
@@ -29,6 +30,7 @@ route.get('(\/+(wp-)?admin)|(\/+dashboad)|(\/+backend)', ensureAuthenticated, fu
 })
 route.use('/backend/dashboard', DashboardController)
 route.use('/backend/posts', PostsController)
+route.use('/backend/projects', ProjectsController)
 
 // Secure section, needs csrftoken to access this rules
 route.use(csrf({ cookie: true }))

@@ -10,22 +10,28 @@ exports.seed = function(knex, Promise) {
           title: 'Hotarun',
           type: 'TV',
           producer: 'Shaft',
+          cover: '/images/no-cover.jpg',
           episode: 12,
           source: 'Light Novel',
           synopsis: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
           score: 9,
-          genres: JSON.stringify(['a', 'b'])
+          genres: JSON.stringify(['a', 'b']),
+          created_at: new Date(),
+          updated_at: new Date()
         }),
         knex('animes').insert({
           id: 2,
           title: 'Hotarin',
           type: 'Movie',
           producer: 'Shift',
+          cover: '/images/no-cover.jpg',
           episode: 1,
           source: 'Manga',
           synopsis: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
           score: 8,
-          genres: JSON.stringify(['c', 'd'])
+          genres: JSON.stringify(['c', 'd']),
+          created_at: new Date(),
+          updated_at: new Date()
         })
       ])
     })
