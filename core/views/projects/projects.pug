@@ -1,0 +1,96 @@
+extends ../backend-layout.pug
+
+block body
+  article.content.items-list-page
+    .title-block
+      h3.title= 'Create a New Project '
+        a.btn.btn-primary.btn-sm(href="/backend/projects/add") Add New
+      p.title-description List of your projects.
+    .card.items
+      ul.item-list.striped
+        li.item.item-list-header.hidden-sm-down
+          .item-row
+            .item-col.item-col-header.fixed.item-col-img.md
+              div
+                span Cover
+            .item-col.item-col-header.item-col-title
+              div
+                span Title
+            .item-col.item-col-header.item-col-type
+              div
+                span Type
+            .item-col.item-col-header.item-col-producer
+              div
+                span Producer
+            .item-col.item-col-header.item-col-episode
+              div
+                span Episode
+            .item-col.item-col-header.item-col-source
+              div
+                span Source
+            .item-col.item-col-header.item-col-score
+              div
+                span Score
+            .item-col.item-col-header.item-col-created_at
+              div
+                span Created at
+            .item-col.item-col-header.item-col-updated_at
+              div
+                span Updated at
+            .item-col.item-col-header.fixed.item-col-actions-dropdown
+        if projects
+          for project in projects
+            li.item
+              .item-row
+                .item-col.fixed.item-col-img.md
+                  a(href="/projects/" + project.id + "")
+                    div.item-img.rounded(style="background-image: url(" + project.cover + ")")
+                      // img.lazy.item-img.rounded(data-original=project.cover)
+                .item-col.pull-left.item-col-title
+                  .item-heading Title
+                  div
+                    a(href="/projects/" + project.id + "")
+                      h4.item-title= project.title
+                .item-col.pull-left.item-col-type.text-sm-left.text-xs-left
+                  .item-heading Type
+                  div
+                    span= project.type
+                .item-col.item-col-producer.text-sm-left.text-xs-left
+                  .item-heading Producer
+                  div
+                    span= project.producer
+                .item-col.item-col-episode.text-sm-left.text-xs-left
+                  .item-heading Episode
+                  div
+                    span= project.episode
+                .item-col.item-col-source.text-sm-left.text-xs-left
+                  .item-heading Source
+                  div
+                    span= project.source
+                .item-col.item-col-score.text-sm-left.text-xs-left
+                  .item-heading Score
+                  div
+                    span= project.score
+                .item-col.item-col-created_at.text-sm-left.text-xs-left
+                  .item-heading Created at
+                  div
+                    span= moment(project.created_at).fromNow()
+                .item-col.item-col-updated_at.text-sm-left.text-xs-left
+                  .item-heading Updated at
+                  div
+                    span= moment(project.updated_at).fromNow()
+                .item-col.fixed.item-col-actions-dropdown
+                  .item-actions-dropdown
+                    a.item-actions-toggle-btn
+                      span.inactive
+                        i.fa.fa-cog
+                      span.active
+                        i.fa.fa-chevron-circle-right
+                    .item-actions-block
+                      ul.item-actions-list
+                        li
+                          a.remove(href="javascript:void(0)", data-toggle="modal", data-target="#confirm-modal")
+                            i.fa.fa-trash-o
+                        li
+                          a.edit(href="#")
+                            i.fa.fa-pencil

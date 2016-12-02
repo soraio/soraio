@@ -1,0 +1,20 @@
+extends ../backend-layout.pug
+
+block body
+  article.content.dashboard-page
+    .title-block
+      h3.title Create a New Project
+        span.sparkline.bar(data-type="bar")
+    form(name="item")
+      .card.card-block
+        .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="project-title") Title:
+          .col-sm-10
+            input.form-control.underlined(type="text", name="project-title", placeholder="Fill with anime's title here ...")
+        .form-group.row
+          .col-sm-10.col-sm-offset-2
+            .row
+              .col-sm-2
+                button.form-control.btn.btn-primary(type="submit") Save
+              .col-sm-2
+                a.form-control.btn.btn-danger(href="/backend/dashboard") Cancel
