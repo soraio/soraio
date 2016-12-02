@@ -2,7 +2,12 @@
 $(document).ready(function(){
   $(".editor-toolbar").addClass("form-control underlined");
   $(".CodeMirror-wrap").addClass("form-control underlined");
-})
+  $(".lazy").show().lazyload({
+    effect : "fadeIn",
+    failure_limit : 10
+  });
+});
+
 var config = window.config = {};
 
 // Config reference element

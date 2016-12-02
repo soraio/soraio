@@ -1,19 +1,13 @@
 doctype html
-html.no-js(amp lang="en")
+html.no-js(lang="en")
   head
     meta(charset="utf-8")
-    script(async src="//cdn.ampproject.org/v0.js")
     link(rel="canonical" href=".")
     meta(http-equiv="x-ua-compatible", content="ie=edge")
     title= site
     meta(name="description", content="Sora Iro Fansubs - Dashboard")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel="apple-touch-icon", href="apple-touch-icon.png")
-    style(amp-boilerplate).
-      body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}
-    noscript
-      style(amp-boilerplate).
-        body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}
     link(rel="stylesheet", href="/node_modules/simplemde/dist/simplemde.min.css")
     link(rel="stylesheet", href="/css/vendor.css")
     link(rel="stylesheet", href="/css/app.css")
@@ -62,7 +56,7 @@ html.no-js(amp lang="en")
             nav.menu
               ul#sidebar-menu.nav.metismenu
                 li.active
-                  a(href="javascript:void(0)")
+                  a(href="/backend/dashboard")
                     i.fa.fa-home
                     | Dashboard
                 li
@@ -100,10 +94,10 @@ html.no-js(amp lang="en")
                     i.fa.arrow
                   ul.collapse(style="height: 0px;")
                     li
-                      a(href="javascript:void(0)")
+                      a(href="/backend/projects/add")
                         | Create a New Projects
                     li
-                      a(href="javascript:void(0)")
+                      a(href="/backend/projects/all")
                         | All Projects
                 li
                   a(href="javascript:void(0)")
@@ -170,8 +164,7 @@ html.no-js(amp lang="en")
                   i.fa.fa-cog
                   |  Customize
         #sidebar-overlay.sidebar-overlay
-        article.content.dashboard-page
-          block body
+        block body
         footer.footer
           .footer-block.github
             a(href="javascript:void(0)")
@@ -235,6 +228,7 @@ html.no-js(amp lang="en")
         .color-secondary
     script(src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js")
     script(src="/js/vendor.js")
+    script(src="/node_modules/jquery-lazyload/jquery.lazyload.js")
     script(src="/js/app.js")
     script(src="/js/letterAvatar.js")
     .responsive-bootstrap-toolkit
