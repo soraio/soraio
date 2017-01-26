@@ -5,24 +5,24 @@ block body
     .title-block
       h3.title Create a New Post
         span.sparkline.bar(data-type="bar")
-    form(name="item")
+    form(name="item", method="post")
       .card.card-block
         .form-group.row
-          label.col-sm-2.form-control-label.text-xs-right(for="post-title") Title:
+          label.col-sm-2.form-control-label.text-xs-right(for="title") Title:
           .col-sm-10
-            input.form-control.underlined(type="text", name="post-title", placeholder="Some title here ...")
+            input.form-control.underlined(type="text", name="title", placeholder="Some title here ...")
         .form-group.row
-          label.col-sm-2.form-control-label.text-xs-right(for="post-anime") Project:
+          label.col-sm-2.form-control-label.text-xs-right(for="anime") Project:
           .col-sm-10
-            select.c-select.form-control.underlined(name="post-anime")
+            select.c-select.form-control.underlined(name="anime")
               option(selected) Choose an Anime
               if projects
                 for project in projects
                   option(value=project.id)= project.title
         .form-group.row
-          label.col-sm-2.form-control-label.text-xs-right(for="post-content") Content:
+          label.col-sm-2.form-control-label.text-xs-right(for="content") Content:
           .col-sm-10
-            textarea#simplemde-npm(name="post-content")
+            textarea#simplemde-npm(name="content")
             script.
               var simplemde = new SimpleMDE({ element: document.getElementById("simplemde-npm"), forceSync: true, placeholder: "Type some descriptions here ...", spellChecker: false });
               simplemde.codemirror.on("change", function(){
@@ -31,10 +31,10 @@ block body
         .form-group.row
           .col-sm-10.col-sm-offset-2
             label
-              input.radio.squared(name="squared-radios", checked="checked", type="radio")
+              input.radio.squared(name="publish", checked="checked", type="radio", value="true")
               span Publish
             label
-              input.radio.squared(name="squared-radios", type="radio")
+              input.radio.squared(name="publish", type="radio", value="false")
               span Draft
         .form-group.row
           .col-sm-10.col-sm-offset-2
