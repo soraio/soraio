@@ -7,7 +7,8 @@ $(document).ready(function(){
     failure_limit : 10
   });
   $("a.remove").on("click", function() {
-    $("#confirm-modal a.btn.btn-primary").attr("href", $(this).attr("href"));
+    $("#confirm-modal a.btn.btn-primary").attr("href", $(this).attr("href")).show();
+    $("#confirm-modal .modal-body p").text("Are you sure want to do this? Hope you know what are you doing.");
   });
 });
 

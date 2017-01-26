@@ -35,7 +35,10 @@ PostsController.route('/add')
     anime_id: item.anime,
     publish: (item.publish == "false") ? false : true
   })
-  .then(function() {
+  .then(function(data) {
+    post = data.toJSON()
+    var mark = (post.publish) ? 'published' : 'drafted'
+    req.flash('info', 'New post has been created and mark as ' + mark + ' post.')
     res.redirect('/backend/posts/user')
   })
   .catch(function(err) {
@@ -51,7 +54,7 @@ PostsController.route('/delete/:pid')
     return Post.destroy({id: post.id})
   })
   .then(function() {
-    req.flash('message', 'Success')
+    req.flash('info', 'Post has been deleted.')
     res.redirect('/backend/posts/user')
   })
   .catch(function() {
@@ -76,7 +79,7 @@ PostsController.route('/user/:pid?')
         size = posts.pagination.pageSize,
         next = (current_next < size) ? current_next += 1 : false,
         prev = (current_prev > 0) ? current_prev -= 1 : false
-    res.render('posts/posts', {user: req.user, posts: posts.toJSON(), next: next, prev: prev, message: req.flash('message')})
+    res.render('posts/posts', {user: req.user, posts: posts.toJSON(), next: next, prev: prev, message: req.flash('info')})
   })
   .catch(function(err) {
     console.log(err)
