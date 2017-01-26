@@ -43,11 +43,28 @@ PostsController.route('/add')
   })
 })
 
+PostsController.route('/delete/:pid')
+.get(function(req, res, next) {
+  Post
+  .findOne({id: req.params.pid, user_id: req.user.id})
+  .then(function(post) {
+    return Post.destroy({id: post.id})
+  })
+  .then(function() {
+    req.flash('message', 'Success')
+    res.redirect('/backend/posts/user')
+  })
+  .catch(function() {
+    res.redirect('/backend/posts/user')
+  })
+})
+
 PostsController.route('/user/:pid?')
 .get(function(req, res, next) {
   Post
   .forge()
   .where({user_id: req.user.id})
+  .orderBy("-created_at")
   .fetchPage({
     page: req.params.pid,
     pageSize: 2,
@@ -59,7 +76,7 @@ PostsController.route('/user/:pid?')
         size = posts.pagination.pageSize,
         next = (current_next < size) ? current_next += 1 : false,
         prev = (current_prev > 0) ? current_prev -= 1 : false
-    res.render('posts/posts', {user: req.user, posts: posts.toJSON(), next: next, prev: prev})
+    res.render('posts/posts', {user: req.user, posts: posts.toJSON(), next: next, prev: prev, message: req.flash('message')})
   })
   .catch(function(err) {
     console.log(err)
@@ -70,6 +87,7 @@ PostsController.route('/user/:pid?')
 PostsController.route('/all/:pid?')
 .get(function(req, res, next) {
   Post.forge()
+  .orderBy("-created_at")
   .fetchPage({
     page: req.params.pid,
     pageSize: 2,

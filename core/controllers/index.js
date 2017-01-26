@@ -12,6 +12,7 @@ var express = require('express'),
 IndexController.route('(/pages/:pid|/)?')
 .get(function(req, res, next) {
   Post.forge()
+  .orderBy("-created_at")
   .fetchPage({
     page: req.params.pid,
     pageSize: 2,

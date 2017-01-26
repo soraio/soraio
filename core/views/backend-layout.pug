@@ -217,9 +217,12 @@ html.no-js(lang="en")
                   i.fa.fa-warning
                   | Alert
               .modal-body
-                p Are you sure want to do this?
+                if message && message.length
+                  p= message
+                else
+                  p Are you sure want to do this?
               .modal-footer
-                button.btn.btn-primary(type="button", data-dismiss="modal") Yes
+                a.btn.btn-primary Yes
                 button.btn.btn-secondary(type="button", data-dismiss="modal") No
     #ref.ref
       .color-primary

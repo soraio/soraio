@@ -70,7 +70,7 @@ block body
                     .item-actions-block
                       ul.item-actions-list
                         li
-                          a.remove(href="javascript:void(0)", data-toggle="modal", data-target="#confirm-modal")
+                          a.remove(href="/backend/posts/delete/" + post.id, data-toggle="modal", data-target="#confirm-modal")
                             i.fa.fa-trash-o
                         li
                           a.edit(href="#")

@@ -6,6 +6,9 @@ $(document).ready(function(){
     effect : "fadeIn",
     failure_limit : 10
   });
+  $("a.remove").on("click", function() {
+    $("#confirm-modal a.btn.btn-primary").attr("href", $(this).attr("href"));
+  });
 });
 
 var config = window.config = {};
