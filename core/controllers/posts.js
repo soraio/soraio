@@ -46,6 +46,51 @@ PostsController.route('/add')
   })
 })
 
+PostsController.route('/edit/:pid')
+.get(function(req, res, next) {
+  Project
+  .fetchAll()
+  .then(function(projects) {
+    Post
+    .findOne({id: req.params.pid, user_id: req.user.id})
+    .then(function(post) {
+      res.render('posts/edit', {user: req.user, post: post.toJSON(), projects: projects.toJSON()})
+    })
+    .catch(function(err) {
+      req.flash('info', 'Couldn\'t find post by id ' + req.params.pid)
+      res.redirect('/backend/posts/user')
+    })
+  })
+  .catch(function(err) {
+    next()
+  })
+})
+.post(function(req, res, next) {
+  var item = req.body,
+      user = req.user
+  Post.upsert({
+    id: item.pid,
+    user_id: user.id
+  },
+  {
+    title: item.title,
+    slug: slugifies(item.title + ' by ' + user.id, {lower: true}),
+    content: item.content,
+    anime_id: item.anime,
+    publish: (item.publish == "false") ? false : true
+  })
+  .then(function(data) {
+    post = data.toJSON()
+    var mark = (post.publish) ? 'published' : 'drafted'
+    req.flash('info', 'The post has been updated and mark as ' + mark + ' post.')
+    res.redirect('/backend/posts/user')
+  })
+  .catch(function(err) {
+    req.flash('info', 'Couldn\'t edit post. The post doesn\'t belong to you.')
+    res.redirect('/backend/posts/user')
+  })
+})
+
 PostsController.route('/delete/:pid')
 .get(function(req, res, next) {
   Post
@@ -58,6 +103,7 @@ PostsController.route('/delete/:pid')
     res.redirect('/backend/posts/user')
   })
   .catch(function() {
+    req.flash('info', 'Couldn\'t delete the post. The post doesn\'t belong to you.')
     res.redirect('/backend/posts/user')
   })
 })
