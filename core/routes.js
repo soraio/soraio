@@ -2,7 +2,7 @@
   * Module dependencies.
   */
 var express = require('express'),
-    route = express(),
+    route = express.Router(),
     path = require('path'),
     IndexController = require('./controllers/index'),
     AuthController = require('./controllers/auth'),
@@ -10,12 +10,6 @@ var express = require('express'),
     PostsController = require('./controllers/posts'),
     ProjectsController = require('./controllers/projects'),
     csrf = require('csurf')
-
-/**
-  * Setting up views directory.
-  */
-route.set('views', path.join(__dirname, 'views'))
-route.locals.moment = require('moment')
 
 /**
   * Routing the controllers.
