@@ -34,15 +34,19 @@ AuthController.route('/login')
   failureRedirect : '/auth/login', // redirect back to the signup page if there is an error
   failureFlash : true // allow flash messages
 }),
-function(req, res) {
-  console.log("hello")
+function(req, res, next) {
+  // issue a remember me cookie if the option was checked
+  if (!req.body.ui_login_remember) { return next() }
 
-  if (req.body.ui_login_remember) {
-    req.session.cookie.maxAge = 1000 * 60 * 3;
-  } else {
-    req.session.cookie.expires = false;
-  }
-res.redirect('/')
+  var token = utils.generateToken(64)
+  Token.save(token, { userId: req.user.id }, function(err) {
+    if (err) { return done(err) }
+    res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 }) // 7 days
+    return next()
+  })
+},
+function(req, res) {
+  res.redirect('/')
 })
 
 /**

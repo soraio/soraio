@@ -1,5 +1,6 @@
 // Databases
 var LocalStrategy = require('passport-local').Strategy,
+    RememberMeStrategy = require('passport-remember-me').Strategy,
     bcrypt = require('bcrypt'),
     passport = require('passport'),
     salt = bcrypt.genSaltSync(10),
@@ -93,5 +94,21 @@ var LocalStrategy = require('passport-local').Strategy,
         })
       })
   )
+
+  passport.use(new RememberMeStrategy( function(token, done) {
+    Token.consume(token, function (err, user) {
+        if (err) { return done(err) }
+        if (!user) { return done(null, false) }
+        return done(null, user)
+      })
+    },
+    function(user, done) {
+      var token = utils.generateToken(64);
+      Token.save(token, { userId: user.id }, function(err) {
+        if (err) { return done(err) }
+        return done(null, token)
+      })
+    }
+  ))
 
 module.exports = passport
