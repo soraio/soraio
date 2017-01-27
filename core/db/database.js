@@ -9,6 +9,7 @@ var config    = require('../../conf/config'),
 
     // Resolve circular dependencies with relations.
     bookshelf.plugin('registry')
+    bookshelf.plugin('pagination')
     bookshelf.plugin(require('bookshelf-modelbase').pluggable)
 
 module.exports = bookshelf

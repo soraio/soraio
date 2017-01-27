@@ -15,7 +15,9 @@ main.content
                 block body
               .card-action
                 .card-action-btn.pull-right
-                  a.btn.btn-flat.waves-attach(href="javascript:void(0)")
-                    span.icon chevron_left
-                  a.btn.btn-flat.waves-attach(href="javascript:void(0)")
-                    span.icon chevron_right
+                  if prev
+                    a.btn.btn-flat.waves-attach(href="/pages/" + prev + "")
+                      span.icon chevron_left
+                  if next
+                    a.btn.btn-flat.waves-attach(href="/pages/" + next + "")
+                      span.icon chevron_right

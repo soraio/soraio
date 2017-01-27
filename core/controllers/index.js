@@ -9,11 +9,22 @@ var express = require('express'),
 /**
   * GET / rules.
   */
-IndexController.route('/')
+IndexController.route('(/pages/:pid|/)?')
 .get(function(req, res, next) {
-  Post.fetchAll({withRelated: ['user'], require: true})
+  Post.forge()
+  .orderBy("-created_at")
+  .fetchPage({
+    page: req.params.pid,
+    pageSize: 2,
+    withRelated: ['user', 'project']
+  })
   .then(function(posts){
-    res.render('index', {user: req.user, posts: posts.toJSON()})
+    var current_prev = posts.pagination.page,
+        current_next = posts.pagination.page,
+        size = posts.pagination.pageSize,
+        next = (current_next < size) ? current_next += 1 : false,
+        prev = (current_prev > 0) ? current_prev -= 1 : false
+    res.render('index', {user: req.user, posts: posts.toJSON(), next: next, prev: prev})
   })
   .catch(function(err) {
     next()

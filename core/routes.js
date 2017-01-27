@@ -2,19 +2,14 @@
   * Module dependencies.
   */
 var express = require('express'),
-    route = express(),
+    route = express.Router(),
     path = require('path'),
     IndexController = require('./controllers/index'),
     AuthController = require('./controllers/auth'),
     DashboardController = require('./controllers/dashboard'),
     PostsController = require('./controllers/posts'),
+    ProjectsController = require('./controllers/projects'),
     csrf = require('csurf')
-
-/**
-  * Setting up views directory.
-  */
-route.set('views', path.join(__dirname, 'views'))
-route.locals.moment = require('moment')
 
 /**
   * Routing the controllers.
@@ -29,6 +24,7 @@ route.get('(\/+(wp-)?admin)|(\/+dashboad)|(\/+backend)', ensureAuthenticated, fu
 })
 route.use('/backend/dashboard', DashboardController)
 route.use('/backend/posts', PostsController)
+route.use('/backend/projects', ProjectsController)
 
 // Secure section, needs csrftoken to access this rules
 route.use(csrf({ cookie: true }))

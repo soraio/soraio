@@ -1,5 +1,6 @@
 // Databases
 var LocalStrategy = require('passport-local').Strategy,
+    RememberMeStrategy = require('passport-remember-me').Strategy,
     bcrypt = require('bcrypt'),
     passport = require('passport'),
     salt = bcrypt.genSaltSync(10),
@@ -12,7 +13,7 @@ var LocalStrategy = require('passport-local').Strategy,
 
   // used to deserialize the user
   passport.deserializeUser(function(id, done) {
-    User.findById({id: id}).then(function(user){
+    User.findById(id).then(function(user){
       done(null, user.toJSON())
     }).catch(function(err){
       done(err)
@@ -40,7 +41,7 @@ var LocalStrategy = require('passport-local').Strategy,
                 lastName: req.body.lastName,
                 email: req.body.email,
                 birth: new Date(req.body.birth),
-                levelas: 1,
+                level: 1,
                 remember_token: null
             }
             // find a user whose username is the same as the forms username
@@ -93,5 +94,21 @@ var LocalStrategy = require('passport-local').Strategy,
         })
       })
   )
+
+  passport.use('remember-me', new RememberMeStrategy( function(token, done) {
+    Token.consume(token, function (err, user) {
+        if (err) { return done(err) }
+        if (!user) { return done(null, false) }
+        return done(null, user)
+      })
+    },
+    function(user, done) {
+      var token = utils.generateToken(64);
+      Token.save(token, { userId: user.id }, function(err) {
+        if (err) { return done(err) }
+        return done(null, token)
+      })
+    }
+  ))
 
 module.exports = passport

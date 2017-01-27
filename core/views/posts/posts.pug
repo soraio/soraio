@@ -1,77 +1,77 @@
 extends ../backend-layout.pug
 
 block body
-  .title-block
-    h3.title= 'Create a New Post '
-      a.btn.btn-primary.btn-sm(href="/posts/add") Add New
-    p.title-description List of your posts.
-  .card.items
-    ul.item-list.striped
-      li.item.item-list-header.hidden-sm-down
-        .item-row
-          .item-col.item-col-header.item-col-title
-            div
-              span Title
-          .item-col.item-col-header.item-col-project
-            div
-              span Project
-          .item-col.item-col-header.item-col-author
-            div
-              span Author
-          .item-col.item-col-header.item-col-status
-            div
-              span Status
-          .item-col.item-col-header.item-col-created_at
-            div
-              span Created at
-          .item-col.item-col-header.item-col-updated_at
-            div
-              span Updated at
-          .item-col.item-col-header.fixed.item-col-actions-dropdown
-      if posts
-        for post in posts
-          li.item
-            .item-row
-              .item-col.pull-left.item-col-title
-                .item-heading Title
-                div
-                  a(href="/posts/" + post.id + "")
-                    h4.item-title= post.title
-              .item-col.item-col-project
-                .item-heading Project
-                div
-                  span= post.anime_id
-              .item-col.item-col-author
-                .item-heading Author
-                div
-                  span= post.user.firstName + ' ' + post.user.lastName
-              .item-col.item-col-status
-                .item-heading Status
-                div
-                  if post.publish
-                    span Published
-                  else
-                    span Draft
-              .item-col.item-col-created_at
-                .item-heading Created at
-                div
-                  span= moment(post.created_at).fromNow()
-              .item-col.item-col-updated_at
-                .item-heading Updated at
-                div
-                  span= moment(post.updated_at).fromNow()
-              .item-col.fixed.item-col-actions-dropdown
-                .item-actions-dropdown
-                  a.item-actions-toggle-btn
-                    span.inactive
-                      i.fa.fa-cog
-                    span.active
-                      i.fa.fa-chevron-circle-right
-                  .item-actions-block
-                    ul.item-actions-list
-                      li
-                        a.remove(href="javascript:void(0)", data-toggle="modal", data-target="#confirm-modal")
-                          i.fa.fa-trash-o
-                      li
-                        a.edit(href="#")
-                          i.fa.fa-pencil
+  article.content.items-list-page
+    .title-block
+      h3.title= 'Create a New Post '
+        a.btn.btn-primary.btn-sm(href="/backend/posts/add") Add New
+      p.title-description List of your posts.
+    .card.items
+      ul.item-list.striped
+        li.item.item-list-header.hidden-sm-down
+          .item-row
+            .item-col.item-col-header.item-col-title
+              div
+                span Title
+            .item-col.item-col-header.item-col-project
+              div
+                span Project
+            .item-col.item-col-header.item-col-author
+              div
+                span Author
+            .item-col.item-col-header.item-col-status
+              div
+                span Status
+            .item-col.item-col-header.item-col-created_at
+              div
+                span Created at
+            .item-col.item-col-header.item-col-updated_at
+              div
+                span Updated at
+            .item-col.item-col-header.fixed.item-col-actions-dropdown
+        if posts
+          for post in posts
+            li.item
+              .item-row
+                .item-col.pull-left.item-col-title
+                  div
+                    a(href="/posts/" + post.id + "")
+                      h4.item-title= post.title
+                .item-col.item-col-project.text-sm-left.text-xs-left
+                  .item-heading Project
+                  div
+                    span= post.project.title
+                .item-col.item-col-author.text-sm-left.text-xs-left
+                  .item-heading Author
+                  div
+                    span= post.user.firstName + ' ' + post.user.lastName
+                .item-col.item-col-status.text-sm-left.text-xs-left
+                  .item-heading Status
+                  div
+                    if post.publish
+                      span Published
+                    else
+                      span Draft
+                .item-col.item-col-created_at.text-sm-left.text-xs-left
+                  .item-heading Created at
+                  div
+                    span= moment(post.created_at).fromNow()
+                .item-col.item-col-updated_at.text-sm-left.text-xs-left
+                  .item-heading Updated at
+                  div
+                    span= moment(post.updated_at).fromNow()
+                .item-col.fixed.item-col-actions-dropdown
+                  .item-actions-dropdown
+                    a.item-actions-toggle-btn
+                      span.inactive
+                        i.fa.fa-cog
+                      span.active
+                        i.fa.fa-chevron-circle-right
+                    .item-actions-block
+                      ul.item-actions-list
+                        li
+                          a.remove(href="/backend/posts/delete/" + post.id, data-toggle="modal", data-target="#confirm-modal")
+                            i.fa.fa-trash-o
+                        li
+                          a.edit(href="/backend/posts/edit/" + post.id)
+                            i.fa.fa-pencil

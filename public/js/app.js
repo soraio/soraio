@@ -2,7 +2,16 @@
 $(document).ready(function(){
   $(".editor-toolbar").addClass("form-control underlined");
   $(".CodeMirror-wrap").addClass("form-control underlined");
-})
+  $(".lazy").show().lazyload({
+    effect : "fadeIn",
+    failure_limit : 10
+  });
+  $("a.remove").on("click", function() {
+    $("#confirm-modal a.btn.btn-primary").attr("href", $(this).attr("href")).show();
+    $("#confirm-modal .modal-body p").text("Are you sure want to do this? Hope you know what are you doing.");
+  });
+});
+
 var config = window.config = {};
 
 // Config reference element

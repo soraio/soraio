@@ -1,0 +1,92 @@
+extends ../backend-layout.pug
+
+block body
+  article.content.items-list-page
+    .title-block
+      h3.title Create a New Project
+        span.sparkline.bar(data-type="bar")
+    form#anime
+      .card.card-block
+        .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="project-title") Title:
+          .col-sm-10
+            input.form-control.underlined.anime(type="text", placeholder="Fill with anime's title here ...")
+        .form-group.row
+          .col-sm-10.col-sm-offset-2
+            .row
+              .col-sm-2
+                button.form-control.btn.btn-primary.search(type="submit") Search
+    if animes && animes.length
+      .card.items
+        ul.item-list.striped
+          li.item.item-list-header.hidden-sm-down
+            .item-row
+              .item-col.item-col-header.fixed.item-col-img.md
+                div
+                  span Cover
+              .item-col.item-col-header.item-col-title
+                div
+                  span Title
+              .item-col.item-col-header.item-col-type
+                div
+                  span Type
+              .item-col.item-col-header.item-col-producer
+                div
+                  span Status
+              .item-col.item-col-header.item-col-title
+                div
+                  span Aired date
+              .item-col.item-col-header.item-col-source
+                div
+                  span Source
+              .item-col.item-col-header.item-col-score
+                div
+                  span Score
+              .item-col.item-col-header.item-col-actions
+          for project in animes
+            form(method="post", action="/backend/projects/add")
+              -
+                var img = project.image_url
+                img = img.replace('https://myanimelist.cdn-dena.com/r/116x180', '//myanimelist.cdn-dena.com')
+              input(type="hidden", name="title", value=project.name)
+              input(type="hidden", name="cover", value=img)
+              input(type="hidden", name="type", value=project.payload.media_type)
+              input(type="hidden", name="status", value=project.payload.status)
+              input(type="hidden", name="aired", value=project.payload.aired)
+              input(type="hidden", name="source", value=project.url)
+              input(type="hidden", name="score", value=project.payload.score)
+              li.item
+                .item-row
+                  .item-col.fixed.item-col-img.md
+                    a(href="javascript:void(0)")
+                      div.item-img.rounded(style="background-image: url(" + img + ")")
+                      // img.lazy.item-img.rounded(data-original=project.cover)
+                  .item-col.pull-left.item-col-title
+                    .item-heading Title
+                    div
+                      h4.item-title= project.name
+                  .item-col.pull-left.item-col-type.text-sm-left.text-xs-left
+                    .item-heading Type
+                    div
+                      span= project.payload.media_type
+                  .item-col.item-col-producer.text-sm-left.text-xs-left
+                    .item-heading Status
+                    div
+                      span= project.payload.status
+                  .item-col.item-col-title.text-sm-left.text-xs-left
+                    .item-heading Aired date
+                    div
+                      span= project.payload.aired
+                  .item-col.item-col-source.text-sm-left.text-xs-left
+                    .item-heading Source
+                    div
+                      a(href=project.url)
+                        span MAL
+                  .item-col.item-col-score.text-sm-left.text-xs-left
+                    .item-heading Score
+                    div
+                      span= project.payload.score
+                  .item-col.item-col-actions.text-sm-right
+                    .item-actions
+                      a.item-actions
+                        button.btn.btn-primary(type="submit") Add
