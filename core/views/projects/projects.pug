@@ -19,12 +19,9 @@ block body
             .item-col.item-col-header.item-col-type
               div
                 span Type
-            .item-col.item-col-header.item-col-producer
+            .item-col.item-col-header.item-col-status
               div
-                span Producer
-            .item-col.item-col-header.item-col-episode
-              div
-                span Episode
+                span Status
             .item-col.item-col-header.item-col-source
               div
                 span Source
@@ -55,18 +52,15 @@ block body
                   .item-heading Type
                   div
                     span= project.type
-                .item-col.item-col-producer.text-sm-left.text-xs-left
-                  .item-heading Producer
+                .item-col.item-col-status.text-sm-left.text-xs-left
+                  .item-heading Status
                   div
-                    span= project.producer
-                .item-col.item-col-episode.text-sm-left.text-xs-left
-                  .item-heading Episode
-                  div
-                    span= project.episode
-                .item-col.item-col-source.text-sm-left.text-xs-left
+                    span= project.status
+                .item-col.item-col-s.text-sm-left.text-xs-left
                   .item-heading Source
                   div
-                    span= project.source
+                    a(href=project.source)
+                      span MAL
                 .item-col.item-col-score.text-sm-left.text-xs-left
                   .item-heading Score
                   div
@@ -89,8 +83,5 @@ block body
                     .item-actions-block
                       ul.item-actions-list
                         li
-                          a.remove(href="javascript:void(0)", data-toggle="modal", data-target="#confirm-modal")
+                          a.remove(href="/backend/projects/delete/" + project.id + "/" + project.title, data-toggle="modal", data-target="#confirm-modal")
                             i.fa.fa-trash-o
-                        li
-                          a.edit(href="#")
-                            i.fa.fa-pencil

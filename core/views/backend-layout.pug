@@ -241,6 +241,12 @@ html.no-js(lang="en")
           $('#confirm-modal .btn-secondary').text('Close');
           $('#confirm-modal').modal('show');
         });
+    script.
+      $(document).ready(function(){
+        $('form#anime').on('submit', function(){
+          $('form#anime').attr('action', '/backend/projects/find/' + $('#anime input.anime').val());
+        });
+      })
     .responsive-bootstrap-toolkit
       .device-xs.hidden-sm-up
       .device-sm.hidden-xs-down.hidden-md-up
