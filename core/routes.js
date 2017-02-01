@@ -27,6 +27,7 @@ route.use('/backend[\/]?*', ensureAuthenticated, function(req, res, next) {
       return next()
       break
     default:
+      req.flash('info', 'Sorry you aren\'t part of the management users.')
       return res.redirect('/')
   }
 })

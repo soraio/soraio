@@ -24,7 +24,7 @@ IndexController.route('(/pages/:pid?|/)?')
         size = posts.pagination.pageCount,
         next = (current_next < size) ? current_next += 1 : false,
         prev = (current_prev > 0) ? current_prev -= 1 : false
-    res.render('index', {user: req.user, posts: posts.toJSON(), next: next, prev: prev})
+    res.render('index', {user: req.user, posts: posts.toJSON(), next: next, prev: prev, message: req.flash('info')})
   })
   .catch(function(err) {
     next()

@@ -58,7 +58,7 @@ var LocalStrategy = require('passport-local').Strategy,
               .catch(function(){
                 User.create(newUser)
                 .then(function(user){
-                  done(null, false, req.flash('signupMessage', user.id))
+                  done(null, false, req.flash('signupMessage', 'The registration was success. Now, you can sign in with your username.'))
                 })
                 .catch(function(err){
                   err.status = 500
