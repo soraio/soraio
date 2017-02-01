@@ -105,11 +105,12 @@ html.no-js(lang="en")
                     | Users
                     i.fa.arrow
                   ul.collapse(style="height: 0px;")
+                    if user.role_id === 1
+                      li
+                        a(href="/backend/users/add")
+                          | Create a New User
                     li
-                      a(href="javascript:void(0)")
-                        | Create a New User
-                    li
-                      a(href="javascript:void(0)")
+                      a(href="/backend/users")
                         | All Users
                 li
                   a(href="javascript:void(0)")

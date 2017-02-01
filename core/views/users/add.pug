@@ -1,0 +1,44 @@
+extends ../backend-layout.pug
+
+block body
+  article.content.dashboard-page
+    .title-block
+      h3.title Create a New User
+        span.sparkline.bar(data-type="bar")
+    form(name="item", method="post")
+      .card.card-block
+        .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="firstName") First Name:
+          .col-sm-10
+            input.form-control.underlined(type="text", name="firstName", placeholder="First Name")
+        .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="lastName") Last Name:
+          .col-sm-10
+            input.form-control.underlined(type="text", name="lastName", placeholder="Last Name")
+        .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="email") Email Address:
+          .col-sm-10
+            input.form-control.underlined(type="email", name="email", placeholder="e.g. adm@domain.com")
+        .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="username") Username:
+          .col-sm-10
+            input.form-control.underlined(type="text", name="username", placeholder="Input username here ...")
+        .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="password") Password:
+          .col-sm-10
+            input.form-control.underlined(type="password", name="password", placeholder="Input password here ...")
+        .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="anime") Role:
+          .col-sm-10
+            select.c-select.form-control.underlined(name="role")
+              option(selected) Choose a Role
+              if roles
+                for role in roles
+                  option(value=role.id)= role.role
+        .form-group.row
+          .col-sm-10.col-sm-offset-2
+            .row
+              .col-sm-2
+                button.form-control.btn.btn-primary(type="submit") Save
+              .col-sm-2
+                a.form-control.btn.btn-danger(href="/backend/dashboard") Cancel

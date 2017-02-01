@@ -1,0 +1,78 @@
+extends ../backend-layout.pug
+
+block body
+  article.content.items-list-page
+    .title-block
+      h3.title= 'Create a New User '
+        a.btn.btn-primary.btn-sm(href="/backend/users/add") Add New
+      p.title-description List of users.
+    .card.items
+      ul.item-list.striped
+        li.item.item-list-header.hidden-sm-down
+          .item-row
+            .item-col.item-col-header.item-col-title
+              div
+                span Name
+            .item-col.item-col-header.item-col-username
+              div
+                span Username
+            .item-col.item-col-header.item-col-email
+              div
+                span Email Address
+            .item-col.item-col-header.item-col-role
+              div
+                span Role
+            .item-col.item-col-header.item-col-created_at
+              div
+                span Created at
+            .item-col.item-col-header.item-col-updated_at
+              div
+                span Updated at
+            .item-col.item-col-header.fixed.item-col-actions-dropdown
+        if user_lists
+          for _user in user_lists
+            li.item
+              .item-row
+                .item-col.pull-left.item-col-title
+                  div
+                    a(href="/users/" + _user.id + "")
+                      h4.item-title= _user.firstName + ' ' + _user.lastName
+                .item-col.item-col-username.text-sm-left.text-xs-left
+                  .item-heading Username
+                  div
+                    span= _user.username
+                .item-col.item-col-email.text-sm-left.text-xs-left
+                  .item-heading Email Address
+                  div
+                    span= _user.email
+                .item-col.item-col-role.text-sm-left.text-xs-left
+                  .item-heading Role
+                  div
+                    span= _user.role.role
+                .item-col.item-col-created_at.text-sm-left.text-xs-left
+                  .item-heading Created at
+                  div
+                    span= moment(_user.created_at).fromNow()
+                .item-col.item-col-updated_at.text-sm-left.text-xs-left
+                  .item-heading Updated at
+                  div
+                    span= moment(_user.updated_at).fromNow()
+                .item-col.fixed.item-col-actions-dropdown
+                  .item-actions-dropdown
+                    a.item-actions-toggle-btn
+                      span.inactive
+                        i.fa.fa-cog
+                      span.active
+                        i.fa.fa-chevron-circle-right
+                    .item-actions-block
+                      ul.item-actions-list
+                        li
+                          a.view.text-yellow(href="/profile/" + _user.username)
+                            i.fa.fa-eye
+                          if user.role_id === 1
+                            li
+                              a.remove(href="/backend/users/delete/" + _user.id, data-toggle="modal", data-target="#confirm-modal")
+                                i.fa.fa-trash-o
+                            li
+                              a.edit(href="/backend/users/edit/" + _user.id)
+                                i.fa.fa-pencil
