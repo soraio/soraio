@@ -18,7 +18,18 @@ var express = require('express'),
 route.use('/', IndexController)
 
 // Secure section, needs authenticated user to access this rules
-route.use('/backend[\/]?*', ensureAuthenticated)
+route.use('/backend[\/]?*', ensureAuthenticated, function(req, res, next) {
+  switch (req.user.role_id) {
+    case 1:
+      return next()
+      break
+    case 2:
+      return next()
+      break
+    default:
+      return res.redirect('/')
+  }
+})
 route.get('(\/+(wp-)?admin)|(\/+dashboad)|(\/+backend)', ensureAuthenticated, function(req, res, next){
   res.redirect('/backend/dashboard')
 })

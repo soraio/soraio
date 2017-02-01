@@ -3,7 +3,7 @@
   */
 var SoraBookshelf = require('../db/database'),
     User = require('./user'),
-    Project = require('./project')
+    Project = require('./project'),
 
     Post = SoraBookshelf.Model.extend({
       tableName: 'posts',

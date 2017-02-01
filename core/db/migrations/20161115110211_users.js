@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
     table.string('lastName')
     table.string('email')
     table.date('birth')
-    table.integer('level')
+    table.integer('role_id').references('roles.id')
     table.string('remember_token')
     table.timestamps()
   })

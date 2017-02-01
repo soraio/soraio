@@ -9,7 +9,7 @@ var express = require('express'),
 /**
   * GET / rules.
   */
-IndexController.route('(/pages/:pid|/)?')
+IndexController.route('(/pages/:pid?|/)?')
 .get(function(req, res, next) {
   Post.forge()
   .orderBy("-created_at")
@@ -21,7 +21,7 @@ IndexController.route('(/pages/:pid|/)?')
   .then(function(posts){
     var current_prev = posts.pagination.page,
         current_next = posts.pagination.page,
-        size = posts.pagination.pageSize,
+        size = posts.pagination.pageCount,
         next = (current_next < size) ? current_next += 1 : false,
         prev = (current_prev > 0) ? current_prev -= 1 : false
     res.render('index', {user: req.user, posts: posts.toJSON(), next: next, prev: prev})

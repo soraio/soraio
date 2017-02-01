@@ -15,7 +15,7 @@ exports.seed = function(knex, Promise) {
           lastName: 'Trisnadi',
           email: 'zdumb1885@outlook.com',
           birth: new Date('1996/05/05'),
-          level: 3,
+          role_id: 1,
           remember_token: null,
           created_at: new Date(),
           updated_at: new Date()
@@ -27,7 +27,7 @@ exports.seed = function(knex, Promise) {
           lastName: 'Faisal',
           email: 'mufti.faisal@hotmail.com',
           birth: new Date('1996/05/01'),
-          level: 3,
+          role_id: 2,
           remember_token: null,
           created_at: new Date(),
           updated_at: new Date()

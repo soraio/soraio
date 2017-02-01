@@ -16,8 +16,12 @@ main.content
               .card-action
                 .card-action-btn.pull-right
                   if prev
-                    a.btn.btn-flat.waves-attach(href="/pages/" + prev + "")
-                      span.icon chevron_left
+                    if prev === 1
+                      a.btn.btn-flat.waves-attach(href="/")
+                        span.icon chevron_left
+                    else
+                      a.btn.btn-flat.waves-attach(href="/pages/" + prev + "")
+                        span.icon chevron_left
                   if next
                     a.btn.btn-flat.waves-attach(href="/pages/" + next + "")
                       span.icon chevron_right
