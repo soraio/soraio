@@ -48,19 +48,26 @@ ProjectsController.route('/add')
 
 ProjectsController.route('/delete/:pid/:title')
 .get(function(req, res, next) {
-  Project
-  .findOne({id: req.params.pid, title: req.params.title})
-  .then(function(project) {
-    return Project.destroy({id: project.id})
-  })
-  .then(function() {
-    req.flash('info', 'The project has been removed from the projects field.')
-    res.redirect('/backend/projects/all')
-  })
-  .catch(function() {
-    req.flash('info', 'Couldn\'t remove the projects. Missing arguments.')
-    res.redirect('/backend/projects/all')
-  })
+  switch (req.user.role_id) {
+    case 1:
+        Project
+        .findOne({id: req.params.pid, title: req.params.title})
+        .then(function(project) {
+          return Project.destroy({id: project.id})
+        })
+        .then(function() {
+          req.flash('info', 'The project has been removed from the projects field.')
+          res.redirect('/backend/projects/all')
+        })
+        .catch(function() {
+          req.flash('info', 'Couldn\'t remove the projects. Missing arguments.')
+          return res.redirect('/backend/projects/all')
+        })
+      break;
+    default:
+      req.flash('info', 'Role admin required to delete the project.')
+      return res.redirect('/backend/projects/all')
+  }
 })
 
 /**

@@ -62,16 +62,17 @@ block body
                     span= moment(post.updated_at).fromNow()
                 .item-col.fixed.item-col-actions-dropdown
                   .item-actions-dropdown
-                    a.item-actions-toggle-btn
-                      span.inactive
-                        i.fa.fa-cog
-                      span.active
-                        i.fa.fa-chevron-circle-right
-                    .item-actions-block
-                      ul.item-actions-list
-                        li
-                          a.remove(href="/backend/posts/delete/" + post.id, data-toggle="modal", data-target="#confirm-modal")
-                            i.fa.fa-trash-o
-                        li
-                          a.edit(href="/backend/posts/edit/" + post.id)
-                            i.fa.fa-pencil
+                    if user.role_id === admin || post.user_id === user.id
+                      a.item-actions-toggle-btn
+                        span.inactive
+                          i.fa.fa-cog
+                        span.active
+                          i.fa.fa-chevron-circle-right
+                      .item-actions-block
+                        ul.item-actions-list
+                          li
+                            a.remove(href="/backend/posts/delete/" + post.id, data-toggle="modal", data-target="#confirm-modal")
+                              i.fa.fa-trash-o
+                          li
+                            a.edit(href="/backend/posts/edit/" + post.id)
+                              i.fa.fa-pencil
