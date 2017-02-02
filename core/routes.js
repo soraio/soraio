@@ -9,6 +9,7 @@ var express = require('express'),
     DashboardController = require('./controllers/dashboard'),
     PostsController = require('./controllers/posts'),
     ProjectsController = require('./controllers/projects'),
+    UsersController = require('./controllers/users'),
     csrf = require('csurf')
 
 /**
@@ -18,13 +19,36 @@ var express = require('express'),
 route.use('/', IndexController)
 
 // Secure section, needs authenticated user to access this rules
-route.use('/backend[\/]?*', ensureAuthenticated)
+route.use('/backend[\/]?*', ensureAuthenticated, function(req, res, next) {
+  switch (req.user.role_id) {
+    case 1:
+      return next()
+      break
+    case 2:
+      return next()
+      break
+    default:
+      req.flash('info', 'Sorry you aren\'t part of the management users.')
+      return res.redirect('/')
+  }
+})
 route.get('(\/+(wp-)?admin)|(\/+dashboad)|(\/+backend)', ensureAuthenticated, function(req, res, next){
   res.redirect('/backend/dashboard')
+})
+route.use('/backend/users/+(add|delete|edit)+/:pid?', function(req, res, next) {
+  switch (req.user.role_id) {
+    case 1:
+      return next()
+      break
+    default:
+      req.flash('info', 'Role admin required to access this section.')
+      return res.redirect('/backend/dashboard')
+  }
 })
 route.use('/backend/dashboard', DashboardController)
 route.use('/backend/posts', PostsController)
 route.use('/backend/projects', ProjectsController)
+route.use('/backend/users', UsersController)
 
 // Secure section, needs csrftoken to access this rules
 route.use(csrf({ cookie: true }))

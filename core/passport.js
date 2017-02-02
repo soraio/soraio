@@ -41,7 +41,7 @@ var LocalStrategy = require('passport-local').Strategy,
                 lastName: req.body.lastName,
                 email: req.body.email,
                 birth: new Date(req.body.birth),
-                level: 1,
+                role_id: 3,
                 remember_token: null
             }
             // find a user whose username is the same as the forms username
@@ -58,7 +58,7 @@ var LocalStrategy = require('passport-local').Strategy,
               .catch(function(){
                 User.create(newUser)
                 .then(function(user){
-                  done(null, false, req.flash('signupMessage', user.id))
+                  done(null, false, req.flash('signupMessage', 'The registration was success. Now, you can sign in with your username.'))
                 })
                 .catch(function(err){
                   err.status = 500

@@ -48,19 +48,26 @@ ProjectsController.route('/add')
 
 ProjectsController.route('/delete/:pid/:title')
 .get(function(req, res, next) {
-  Project
-  .findOne({id: req.params.pid, title: req.params.title})
-  .then(function(project) {
-    return Project.destroy({id: project.id})
-  })
-  .then(function() {
-    req.flash('info', 'The project has been removed from the projects field.')
-    res.redirect('/backend/projects/all')
-  })
-  .catch(function() {
-    req.flash('info', 'Couldn\'t remove the projects. Missing arguments.')
-    res.redirect('/backend/projects/all')
-  })
+  switch (req.user.role_id) {
+    case 1:
+        Project
+        .findOne({id: req.params.pid, title: req.params.title})
+        .then(function(project) {
+          return Project.destroy({id: project.id})
+        })
+        .then(function() {
+          req.flash('info', 'The project has been removed from the projects field.')
+          res.redirect('/backend/projects/all')
+        })
+        .catch(function() {
+          req.flash('info', 'Couldn\'t remove the projects. Missing arguments.')
+          return res.redirect('/backend/projects/all')
+        })
+      break;
+    default:
+      req.flash('info', 'Role admin required to delete the project.')
+      return res.redirect('/backend/projects/all')
+  }
 })
 
 /**
@@ -83,11 +90,26 @@ ProjectsController.route('/find/:anime')
   }
 })
 
-ProjectsController.route('/all')
+ProjectsController.route('/all/:pid?')
 .get(function(req, res, next) {
-  Project.findAll()
+  Project.forge()
+  .orderBy("-created_at")
+  .fetchPage({
+    page: req.params.pid,
+    pageSize: 20
+  })
   .then(function(projects){
-    res.render('projects/projects', {user: req.user, projects: projects.toJSON(), message: req.flash('info')})
+    var current_prev = projects.pagination.page,
+        current_next = projects.pagination.page,
+        size = projects.pagination.pageCount,
+        pages = {
+          uri: req.baseUrl + '/all/',
+          next: (current_next < size) ? current_next += 1 : false,
+          prev: (current_prev > 0) ? current_prev -= 1 : false,
+          total: size,
+          current: projects.pagination.page
+        }
+    res.render('projects/projects', {user: req.user, projects: projects.toJSON(), pages: pages, message: req.flash('info')})
   })
   .catch(function(err) {
     next()

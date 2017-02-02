@@ -1,8 +1,9 @@
 /**
   * User model.
   */
-var SoraBookshelf = require('../db/database')
-    Post = require('./post')
+var SoraBookshelf = require('../db/database'),
+    Post = require('./post'),
+    Role = require('./role'),
     User = SoraBookshelf.Model.extend({
       tableName: 'users',
       hasTimestamps: true,
@@ -10,6 +11,9 @@ var SoraBookshelf = require('../db/database')
       // Relation One-to-Many User-to-Posts.
       posts: function() {
         return this.hasMany(Post)
+      },
+      role: function() {
+        return this.belongsTo(Role)
       }
     })
 

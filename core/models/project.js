@@ -2,12 +2,12 @@
   * Project model.
   */
 var SoraBookshelf = require('../db/database'),
-    Post = require('./post')
+    Post = require('./post'),
     Project = SoraBookshelf.Model.extend({
       tableName: 'animes',
       hasTimestamps: true,
 
-      // Relation One-to-Many User-to-Posts.
+      // Relation One-to-Many Project-to-Posts.
       posts: function() {
         return this.hasMany(Post)
       }

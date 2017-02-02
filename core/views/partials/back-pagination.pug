@@ -1,0 +1,23 @@
+nav.text-xs-right
+  ul.pagination
+    if pages
+      if pages.prev === 0
+        li.page-item
+          a.page-link Prev
+      else
+        li.page-item
+          a.page-link(href=pages.uri + pages.prev) Prev
+      - for (var i = 1; i <= pages.total; i++) {
+        if i === pages.current
+          li.page-item.active
+            a.page-link= i
+        else
+          li.page-item
+            a.page-link(href=pages.uri + i)= i
+      - }
+      if pages.next === false
+        li.page-item
+          a.page-link Next
+      else
+        li.page-item
+          a.page-link(href=pages.uri + pages.next) Next
