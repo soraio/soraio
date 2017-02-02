@@ -90,11 +90,26 @@ ProjectsController.route('/find/:anime')
   }
 })
 
-ProjectsController.route('/all')
+ProjectsController.route('/all/:pid?')
 .get(function(req, res, next) {
-  Project.findAll()
+  Project.forge()
+  .orderBy("-created_at")
+  .fetchPage({
+    page: req.params.pid,
+    pageSize: 20
+  })
   .then(function(projects){
-    res.render('projects/projects', {user: req.user, projects: projects.toJSON(), message: req.flash('info')})
+    var current_prev = projects.pagination.page,
+        current_next = projects.pagination.page,
+        size = projects.pagination.pageCount,
+        pages = {
+          uri: req.baseUrl + '/all/',
+          next: (current_next < size) ? current_next += 1 : false,
+          prev: (current_prev > 0) ? current_prev -= 1 : false,
+          total: size,
+          current: projects.pagination.page
+        }
+    res.render('projects/projects', {user: req.user, projects: projects.toJSON(), pages: pages, message: req.flash('info')})
   })
   .catch(function(err) {
     next()

@@ -59,18 +59,18 @@ UsersController.route('/add')
   })
 })
 
-UsersController.route('/edit/:pid')
+UsersController.route('/edit/:uid')
 .get(function(req, res, next) {
   Role
   .fetchAll()
   .then(function(roles) {
     User
-    .findOne({id: req.params.pid})
+    .findOne({id: req.params.uid})
     .then(function(user) {
       return res.render('users/edit', {user: req.user, user_detail: user.toJSON(), roles: roles.toJSON()})
     })
     .catch(function(err) {
-      req.flash('info', 'Couldn\'t find user by id ' + req.params.pid)
+      req.flash('info', 'Couldn\'t find user by id ' + req.params.uid)
       return res.redirect('/backend/users')
     })
   })
@@ -99,14 +99,14 @@ UsersController.route('/edit/:pid')
                    })
     if(!checkUsername){
       req.flash('info', 'The username has already taken.')
-      return res.redirect('/backend/users/add' + req.params.pid)
+      return res.redirect('/backend/users/add' + req.params.uid)
     }
     if(!checkEmail){
       req.flash('info', 'The email has already used by another username.')
-      return res.redirect('/backend/users/edit' + req.params.pid)
+      return res.redirect('/backend/users/edit' + req.params.uid)
     }
     User.upsert({
-      id: req.params.pid
+      id: req.params.uid
     },
     {
       username: user.username,
@@ -131,45 +131,50 @@ UsersController.route('/edit/:pid')
       })
     })
     .catch(function(err) {
-      req.flash('info', 'Couldn\'t edit user with id ' + req.params.pid)
+      req.flash('info', 'Couldn\'t edit user with id ' + req.params.uid)
       return res.redirect('/backend/users')
     })
 })
 
-UsersController.route('/delete/:pid')
+UsersController.route('/delete/:uid')
 .get(function(req, res, next) {
   User
-  .findOne({id: req.params.pid})
+  .findOne({id: req.params.uid})
   .then(function(user) {
-    return User.destroy({id: req.params.pid})
+    return User.destroy({id: req.params.uid})
   })
   .then(function() {
     req.flash('info', 'user has been deleted.')
     return res.redirect('/backend/users/all')
   })
   .catch(function(err) {
-    req.flash('info', 'Couldn\'t delete user with id ' + req.params.pid)
+    req.flash('info', 'Couldn\'t delete user with id ' + req.params.uid)
     return res.redirect('/backend/users/all')
   })
 })
 
-UsersController.route('/:pid?')
+UsersController.route('/:uid?')
 .get(function(req, res, next) {
   User
   .forge()
   .orderBy("-created_at")
   .fetchPage({
-    page: req.params.pid,
-    pageSize: 2,
+    page: req.params.uid,
+    pageSize: 20,
     withRelated: ['role']
   })
   .then(function(users){
     var current_prev = users.pagination.page,
         current_next = users.pagination.page,
         size = users.pagination.pageCount,
-        next = (current_next < size) ? current_next += 1 : false,
-        prev = (current_prev > 0) ? current_prev -= 1 : false
-    return res.render('users/users', {user: req.user, user_lists: users.toJSON(), next: next, prev: prev, message: req.flash('info')})
+        pages = {
+          uri: req.baseUrl + '/',
+          next: (current_next < size) ? current_next += 1 : false,
+          prev: (current_prev > 0) ? current_prev -= 1 : false,
+          total: size,
+          current: users.pagination.page
+        }
+    return res.render('users/users', {user: req.user, user_lists: users.toJSON(), pages: pages, message: req.flash('info')})
   })
   .catch(function(err) {
     next()
