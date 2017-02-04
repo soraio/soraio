@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments('id').primary()
     table.string('title')
     table.string('type')
+    table.string('slug')
     table.string('cover')
     table.string('source')
     table.integer('score')

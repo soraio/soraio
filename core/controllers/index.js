@@ -40,13 +40,18 @@ IndexController.route('(/pages/:pid?|/)?')
   * GET /posts/pid rules.
   * @param pid {post_id}.
   */
-IndexController.route('/posts/:pid')
+IndexController.route('/posts/:slug')
 .get(function(req, res, next) {
-  var pid = req.params.pid
-  Post.where({id: pid})
-  .fetch({withRelated: ['user'], require: true})
+  var slug = req.params.slug
+  Post
+  .findOne({slug: slug}, {withRelated: ['user'], require: true})
   .then(function(post){
-    res.json(post)
+    var pages = {
+      url: req.baseUrl + '/',
+      next: false,
+      prev: false
+    }
+    res.render('posts/single', {user: req.user, post: post.toJSON(), pages: pages, message: req.flash('info')})
   })
   .catch(function(err) {
     next()

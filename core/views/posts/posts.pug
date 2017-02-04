@@ -35,7 +35,7 @@ block body
               .item-row
                 .item-col.pull-left.item-col-title
                   div
-                    a(href="/posts/" + post.id + "")
+                    a(href="/posts/" + post.slug + "")
                       h4.item-title= post.title
                 .item-col.item-col-project.text-sm-left.text-xs-left
                   .item-heading Project
@@ -61,8 +61,8 @@ block body
                   div
                     span= moment(post.updated_at).fromNow()
                 .item-col.fixed.item-col-actions-dropdown
-                  .item-actions-dropdown
-                    if user.role_id === admin || post.user_id === user.id
+                  if user.role.role === 'admin' || post.user_id === user.id
+                    .item-actions-dropdown
                       a.item-actions-toggle-btn
                         span.inactive
                           i.fa.fa-cog
@@ -71,9 +71,16 @@ block body
                       .item-actions-block
                         ul.item-actions-list
                           li
+                            a.view(href="/posts/" + post.slug)
+                              i.fa.fa-eye
+                          li
                             a.remove(href="/backend/posts/delete/" + post.id, data-toggle="modal", data-target="#confirm-modal")
                               i.fa.fa-trash-o
                           li
                             a.edit(href="/backend/posts/edit/" + post.id)
                               i.fa.fa-pencil
+                  if user.role.role != 'admin' && post.user_id != user.id
+                    .item-actions-block
+                      a.view(href="/posts/" + post.slug)
+                        i.fa.fa-eye
     include ../partials/back-pagination

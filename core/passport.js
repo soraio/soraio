@@ -13,7 +13,7 @@ var LocalStrategy = require('passport-local').Strategy,
 
   // used to deserialize the user
   passport.deserializeUser(function(id, done) {
-    User.findById(id).then(function(user){
+    User.findById(id, {withRelated: ['role']}).then(function(user){
       done(null, user.toJSON())
     }).catch(function(err){
       done(err)

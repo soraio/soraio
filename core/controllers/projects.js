@@ -5,7 +5,8 @@ var express = require('express'),
     ProjectsController = express.Router(),
     // include Project model
     Project = require('../models/project'),
-    request = require('request')
+    request = require('request'),
+    slugifies = require('slug')
 
 /**
   * GET /backend/projects/add rules.
@@ -28,6 +29,7 @@ ProjectsController.route('/add')
   },
   {
     title: item.title,
+    slug: slugifies(item.title, {lower: true}),
     cover: item.cover,
     type: item.type,
     status: item.status,
