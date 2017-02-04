@@ -1,24 +1,54 @@
 extends layout.pug
 
 block body
+  if project
+    .card-table
+      #no-more-tables.table-responsive
+        table.table
+          thead
+            tr
+              th.text-left(colspan="2")= 'Title: ' + project.title
+              td.text-right(colspan="2")
+                span.avatar.avatar-inline.cover-lg
+                  img(src=project.cover)
+          tbody
+            tr
+              th.text-left Type
+              td.text-right= project.type
+              th.text-left Status
+              td.text-right= project.status
+            tr
+              th.text-left Score
+              td.text-right= project.score
+              th.text-left Source
+              td.text-right
+                a(href=project.source) MAL
+            tr
+              td(colspan="2")
+              th.text-left Aired
+              td.text-right= project.aired
   p.card-heading Releases
   .card-table
-  #no-more-tables.table-responsive
-    table.table(title="A table within a card")
-      thead
-        tr
-          th Releaser
-          th Description
-          th.text-right Comments
-      tbody
-        if posts
-          for post in posts
+    #no-more-tables.table-responsive
+      table.table
+        thead
+          tr
+            th Releaser
+            th Description
+            th.text-right Comments
+        tbody
+          if posts && posts.length
+            for post in posts
+              tr
+                td.text-left.releaser(data-title="Releaser")= post.user.username
+                td.text-left(data-title="Description")
+                  a(href="/posts/" + post.slug, title=post.title)= post.title
+                  = ' / '
+                  span.dt-rls Released on
+                  = ' ' + moment(post.created_at).fromNow()
+                td.text-right(data-title="Comments")
+                  a(href="/posts/" + post.slug + "#disqus_thread", title="comment") 0 Comments
+          else
             tr
-              td.text-left.releaser(data-title="Releaser")= post.user.username
-              td.text-left(data-title="Description")
-                a(href="/posts/" + post.slug, title=post.title)= post.title
-                = ' / '
-                span.dt-rls Released on
-                = ' ' + moment(post.created_at).fromNow()
-              td.text-right(data-title="Comments")
-                a(href="/posts/" + post.slug + "#disqus_thread", title="comment") 0 Comments
+              td.text-right(colspan="3")
+                em No posts yet.

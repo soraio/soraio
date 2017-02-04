@@ -14,7 +14,7 @@ var SoraBookshelf = require('../db/database'),
         return this.belongsTo(User)
       },
       project: function() {
-        return this.belongsTo(Project)
+        return this.belongsTo('Project', 'anime_id')
       }
     })
 
