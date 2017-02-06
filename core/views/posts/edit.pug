@@ -33,6 +33,10 @@ block body
                   console.log(simplemde.value());
               });
         .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="ddl") Download Link:
+          .col-sm-10
+            input.form-control.underlined(type="text", name="ddl", placeholder="Direct download link here ...")
+        .form-group.row
           .col-sm-10.col-sm-offset-2
             if post.publish
               label

@@ -32,6 +32,7 @@ PostsController.route('/add')
     title: item.title,
     slug: slugifies(item.title + ' by ' + user.id, {lower: true}),
     content: item.content,
+    dd_link: item.ddl,
     anime_id: item.anime,
     publish: (item.publish == "false") ? false : true
   })
@@ -97,6 +98,7 @@ PostsController.route('/edit/:pid')
       {
         title: item.title,
         content: item.content,
+        dd_link: item.ddl,
         anime_id: item.anime,
         publish: (item.publish == "false") ? false : true
       })
@@ -119,6 +121,7 @@ PostsController.route('/edit/:pid')
       {
         title: item.title,
         content: item.content,
+        dd_link: item.ddl,
         anime_id: item.anime,
         publish: (item.publish == "false") ? false : true
       })

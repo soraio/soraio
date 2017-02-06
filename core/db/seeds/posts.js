@@ -6,9 +6,10 @@ exports.seed = function(knex, Promise) {
       return Promise.all([
         // Inserts seed entries.
         knex('posts').insert({
-          title: 'Anime Episode - 01',
-          slug: 'anime_episode_-_01',
+          title: 'Hi no Youjin - Movie',
+          slug: 'hi-no-youjin-movie',
           content: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+          dd_link: 'hi-no-youjin-movie.mkv',
           publish: true,
           anime_id: 1,
           user_id: 1,
@@ -17,11 +18,12 @@ exports.seed = function(knex, Promise) {
 
         }),
         knex('posts').insert({
-          title: 'Anime Episode - 02',
-          slug: 'anime_episode_-_02',
+          title: 'One Piece - Episode 01',
+          slug: 'one-piece-episode-01',
           content: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+          dd_link: 'one-piece-episode-01.mkv',
           publish: true,
-          anime_id: 1,
+          anime_id: 2,
           user_id: 2,
           created_at: new Date(),
           updated_at: new Date()
