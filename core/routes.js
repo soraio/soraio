@@ -10,6 +10,7 @@ var express = require('express'),
     PostsController = require('./controllers/posts'),
     ProjectsController = require('./controllers/projects'),
     UsersController = require('./controllers/users'),
+    DownloadsController = require('./controllers/downloads')
     csrf = require('csurf')
 
 /**
@@ -17,6 +18,7 @@ var express = require('express'),
   */
 // Public section
 route.use('/', IndexController)
+route.use('/downloads', DownloadsController)
 
 // Secure section, needs authenticated user to access this rules
 route.use('/backend[\/]?*', ensureAuthenticated, function(req, res, next) {

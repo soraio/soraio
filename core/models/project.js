@@ -9,7 +9,7 @@ var SoraBookshelf = require('../db/database'),
 
       // Relation One-to-Many Project-to-Posts.
       posts: function() {
-        return this.hasMany(Post)
+        return this.hasMany('Post')
       }
     })
 

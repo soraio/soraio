@@ -1,0 +1,11 @@
+extends ../layout.pug
+
+block body
+  form.form(method="post")
+    .form-group
+      .row
+        .col-md-10.col-md-push-1
+          if !download.token
+            button.btn.btn-block.btn-brand.waves-attach.waves-light.waves-effect(type="submit") Generate Link
+          else
+            a.direct-download(href=pages.uri + download.token)= ' Download: ' + download.title

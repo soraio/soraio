@@ -4,7 +4,8 @@
 var express = require('express'),
     IndexController = express.Router(),
     // include Post model
-    Post = require('../models/post')
+    Post = require('../models/post'),
+    Project = require('../models/project')
 
 /**
   * GET / rules.
@@ -37,19 +38,58 @@ IndexController.route('(/pages/:pid?|/)?')
 })
 
 /**
-  * GET /posts/pid rules.
-  * @param pid {post_id}.
+  * GET /posts/:slug rules.
+  * @param pid {post_slug}.
   */
-IndexController.route('/posts/:pid')
+IndexController.route('/posts/:slug')
 .get(function(req, res, next) {
-  var pid = req.params.pid
-  Post.where({id: pid})
-  .fetch({withRelated: ['user'], require: true})
-  .then(function(post){
-    res.json(post)
+  var slug = req.params.slug
+  Post
+  .fetchAll({withRelated: ['user', 'project']})
+  .then(function(posts) {
+    posts = posts.toJSON()
+    for (var i = 0; i < posts.length; i++) {
+      if (posts[i].slug === slug){
+        var post = posts[i],
+            pages = {
+              uri: req.baseUrl,
+              next: posts[i+1] ? posts[i+1].slug : false,
+              prev: posts[i-1] ? posts[i-1].slug : false
+            }
+        res.render('posts/single', {user: req.user, post: post, pages: pages, message: req.flash('info')})
+      }
+    }
   })
   .catch(function(err) {
-    next()
+    next(err)
+  })
+})
+
+/**
+  * GET /projects/:slug rules.
+  * @param slug {project_slug}.
+  */
+IndexController.route('/projects/:slug')
+.get(function(req, res, next) {
+  var slug = req.params.slug
+  Project
+  .findOne({slug: slug}, {require: true})
+  .then(function(project) {
+    Post.where({anime_id: project.id}).fetchAll({withRelated: ['user', 'project']})
+    .then(function(posts){
+      var pages = {
+        url: req.baseUrl + '/',
+        next: false,
+        prev: false
+      }
+      res.render('index', {user: req.user, project: project.toJSON(), posts: posts.toJSON(), pages: pages, message: req.flash('info')})
+    })
+    .catch(function(err) {
+      next(err)
+    })
+  })
+  .catch(function(err) {
+    next(err)
   })
 })
 

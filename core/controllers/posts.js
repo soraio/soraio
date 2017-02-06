@@ -32,6 +32,7 @@ PostsController.route('/add')
     title: item.title,
     slug: slugifies(item.title + ' by ' + user.id, {lower: true}),
     content: item.content,
+    dd_link: item.ddl,
     anime_id: item.anime,
     publish: (item.publish == "false") ? false : true
   })
@@ -54,7 +55,7 @@ PostsController.route('/edit/:pid')
       .fetchAll()
       .then(function(projects) {
         Post
-        .findOne({id: req.params.pid})
+        .findById(req.params.pid)
         .then(function(post) {
           res.render('posts/edit', {user: req.user, post: post.toJSON(), projects: projects.toJSON()})
         })
@@ -97,6 +98,7 @@ PostsController.route('/edit/:pid')
       {
         title: item.title,
         content: item.content,
+        dd_link: item.ddl,
         anime_id: item.anime,
         publish: (item.publish == "false") ? false : true
       })
@@ -119,6 +121,7 @@ PostsController.route('/edit/:pid')
       {
         title: item.title,
         content: item.content,
+        dd_link: item.ddl,
         anime_id: item.anime,
         publish: (item.publish == "false") ? false : true
       })
@@ -140,7 +143,7 @@ PostsController.route('/delete/:pid')
   switch (req.user.role_id) {
     case 1:
       Post
-      .findOne({id: req.params.pid})
+      .findById(req.params.pid)
       .then(function(post) {
         return Post.destroy({id: post.id})
       })

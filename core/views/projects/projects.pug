@@ -40,13 +40,13 @@ block body
             li.item
               .item-row
                 .item-col.fixed.item-col-img.md
-                  a(href="/projects/" + project.id + "")
+                  a(href="/projects/" + project.slug + "")
                     div.item-img.rounded(style="background-image: url(" + project.cover + ")")
                       // img.lazy.item-img.rounded(data-original=project.cover)
                 .item-col.pull-left.item-col-title
                   .item-heading Title
                   div
-                    a(href="/projects/" + project.id + "")
+                    a(href="/projects/" + project.slug + "")
                       h4.item-title= project.title
                 .item-col.pull-left.item-col-type.text-sm-left.text-xs-left
                   .item-heading Type
@@ -74,7 +74,7 @@ block body
                   div
                     span= moment(project.updated_at).fromNow()
                 .item-col.fixed.item-col-actions-dropdown
-                  if user.role_id === admin
+                  if user.role.role === 'admin'
                     .item-actions-dropdown
                       a.item-actions-toggle-btn
                         span.inactive
@@ -84,6 +84,13 @@ block body
                       .item-actions-block
                         ul.item-actions-list
                           li
+                            a.view(href="/projects/" + project.slug)
+                              i.fa.fa-eye
+                          li
                             a.remove(href="/backend/projects/delete/" + project.id + "/" + project.title, data-toggle="modal", data-target="#confirm-modal")
                               i.fa.fa-trash-o
+                  else
+                    .item-actions-block
+                      a.view(href="/projects/" + project.slug)
+                        i.fa.fa-eye
     include ../partials/back-pagination
