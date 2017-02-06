@@ -1,6 +1,16 @@
 extends ../layout.pug
 
 block body
+  if post
+    .card-block
+      != marked(post.content)
+      if user
+        div.direct-download
+          a(href="/download/" + post.project.slug + "/" + post.slug)= ' Download: ' + post.title
+      else
+        div.direct-download
+          a(href="/auth/signup")
+            em You must register or sign in to see the direct link.
   div#disqus_thread
   script.
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

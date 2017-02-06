@@ -11,7 +11,23 @@ main.content
         section.content-inner.margin-top-no
           .card
             .card-main
+              .card-header
+                .card-inner
+                  if post
+                    h1.card-heading= post.title
+                  else if project
+                    h1.card-heading= project.title
+                  else
+                    h1.card-heading Releases
               .card-inner.margin-bottom-no
+                if post
+                  ul.breadcrumb
+                    li
+                      a(href="/") Home
+                    li
+                      a(href="/projects/" + post.project.slug)= post.project.title
+                    li.active
+                      a= post.title
                 block body
               .card-action
                 .card-action-btn.pull-right
