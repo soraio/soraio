@@ -7,7 +7,7 @@ var app = require('./lib/server')
 var debug = require('debug')('soraio:server')
 var http = require('http')
 
-var port = normalizePort(process.env.PORT || '1885')
+var port = normalizePort(process.env.PORT || require('./conf/config').port)
 app.set('port', port)
 
 /**

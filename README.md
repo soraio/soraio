@@ -23,8 +23,10 @@ $ knex migrate:latest && knex seed:run
 $ npm start
 ```
 
+Then navigate to the app in browser, default port is on ``3000`` or you can customize it on ``config.js`` file.
+
 ## Run as production
-Changes environtment at ```conf/config.js``` file, from development to production.
+Changes environtment on ```conf/config.js``` file, from development to production.
 
 If you run as a production that means you need to setup the other variables such as ```databaseHost```, ```databaseUsername```, ```databasePassword```, and ```databaseName```. That was all required for mysql database connection.
 
