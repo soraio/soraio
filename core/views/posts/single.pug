@@ -6,7 +6,7 @@ block body
       != marked(post.content)
       if user
         div.direct-download
-          a(href="/download/" + post.project.slug + "/" + post.slug)= ' Download: ' + post.title
+          a(href="/downloads/" + post.project.slug + "/" + post.slug)= ' Download: ' + post.title
       else
         div.direct-download
           a(href="/auth/signup")
