@@ -4,6 +4,7 @@
   "description": "anime fansub",
   "main": "app.js",
   "scripts": {
+    "debug": "DEBUG=soraio:* node app",
     "start": "node app",
     "test": "mocha"
   },

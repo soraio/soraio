@@ -9,6 +9,7 @@ module.exports = {
     * - production
     */
   environment: 'development',
+  port: 3000,
 
   /**
     * Database Configuration.
