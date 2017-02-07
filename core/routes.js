@@ -10,7 +10,8 @@ var express = require('express'),
     PostsController = require('./controllers/posts'),
     ProjectsController = require('./controllers/projects'),
     UsersController = require('./controllers/users'),
-    DownloadsController = require('./controllers/downloads')
+    DownloadsController = require('./controllers/downloads'),
+    SettingsController = require('./controllers/settings'),
     csrf = require('csurf')
 
 /**
@@ -51,6 +52,7 @@ route.use('/backend/dashboard', DashboardController)
 route.use('/backend/posts', PostsController)
 route.use('/backend/projects', ProjectsController)
 route.use('/backend/users', UsersController)
+route.use('/backend/settings', SettingsController)
 
 // Secure section, needs csrftoken to access this rules
 route.use(csrf({ cookie: true }))
