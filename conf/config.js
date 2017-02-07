@@ -25,6 +25,7 @@ module.exports = {
   // databasePassword  : 'pass',
   // databaseName      : 'database_name'
 
+  dbPrefix: 'sora_',
   databaseHost      : 'localhost',
   databaseUsername  : 'onlineak',
   databasePassword  : 'indo12soft345',

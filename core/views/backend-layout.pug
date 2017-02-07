@@ -4,7 +4,7 @@ html.no-js(lang="en")
     meta(charset="utf-8")
     link(rel="canonical" href=".")
     meta(http-equiv="x-ua-compatible", content="ie=edge")
-    title= site
+    title= site_title
     meta(name="description", content="Sora Iro Fansubs - Dashboard")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel="apple-touch-icon", href="apple-touch-icon.png")
@@ -52,7 +52,7 @@ html.no-js(lang="en")
                   span.l.l3
                   span.l.l4
                   span.l.l5
-                = site
+                = site_title
             nav.menu
               ul#sidebar-menu.nav.metismenu
                 li.active
@@ -176,8 +176,8 @@ html.no-js(lang="en")
           .footer-block.author
             ul
               li
-                | &copy;
-                a(href="/")= site
+                | &copy; 
+                a(href="/")= site_title
                 | , 2012 - 2016
               li
                 a(href="/") MIT License

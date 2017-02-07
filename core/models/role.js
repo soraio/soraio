@@ -1,14 +1,15 @@
 /**
   * Project model.
   */
-var SoraBookshelf = require('../db/database'),
+var dbPrefix = require('../../conf/config').dbPrefix,
+    SoraBookshelf = require('../db/database'),
     User = require('./user'),
     Role = SoraBookshelf.Model.extend({
-      tableName: 'roles',
+      tableName: dbPrefix + 'roles',
 
       // Relation One-to-Many Role-to-Users.
       users: function() {
-        return this.hasMany(User)
+        return this.hasMany('User')
       }
     })
 

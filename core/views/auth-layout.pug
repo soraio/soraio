@@ -4,9 +4,9 @@ html(lang="en")
     include partials/meta
     title
       if title
-        = title + ' | ' + site
+        = title + ' | ' + site_title
       else
-        = site
+        = site_title
     // css
     include partials/style
     // Custom css
@@ -19,8 +19,8 @@ html(lang="en")
         .container
           .row
             .col-md-8.col-md-offset-2.col-xs-12
-              h1.content-heading= site
-              h4.content-heading= irc
+              h1.content-heading= site_title
+              h4.content-heading= site_irc
       .container
         block body
     include partials/footer
