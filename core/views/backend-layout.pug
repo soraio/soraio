@@ -30,15 +30,12 @@ html.no-js(lang="en")
                   span.name
                     = user.firstName + ' ' + user.lastName
                 .dropdown-menu.profile-dropdown-menu.animated.flipInX(aria-labelledby="dropdownMenu1")
+                  a.dropdown-item(href="/")
+                    i.fa.fa-globe.icon
+                    |  Back to site
                   a.dropdown-item(href="javascript:void(0)")
                     i.fa.fa-user.icon
-                    |  Profile
-                  a.dropdown-item(href="javascript:void(0)")
-                    i.fa.fa-bell.icon
-                    |  Notifications
-                  a.dropdown-item(href="javascript:void(0)")
-                    i.fa.fa-gear.icon
-                    |  Settings
+                    |  Your profile
                   a.dropdown-item(href="/auth/logout")
                     i.fa.fa-power-off.icon
                     |  Logout
@@ -112,10 +109,11 @@ html.no-js(lang="en")
                     li
                       a(href="/backend/users")
                         | All Users
-                li
-                  a(href="javascript:void(0)")
-                    i.fa.fa-gears
-                    | Settings
+                if user.role_id === 1
+                  li
+                    a(href="/backend/settings")
+                      i.fa.fa-gears
+                      | Settings
           footer.sidebar-footer
             ul#customize-menu.nav.metismenu
               li
@@ -176,7 +174,7 @@ html.no-js(lang="en")
           .footer-block.author
             ul
               li
-                | &copy; 
+                | &copy;
                 a(href="/")= site_title
                 | , 2012 - 2016
               li

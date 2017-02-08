@@ -18,15 +18,12 @@ header.header.header-transparent.header-color-black.header-waterfall.ui-header
       ul.dropdown-menu.dropdown-menu-right
         if user
           li
-            a.padding-right-lg.waves-attach(href="/backend/dashboard")
+            - var dashboard = (user.role_id != 3) ? '/backend/dashboard' : ''
+            a.padding-right-lg.waves-attach(href=dashboard)
               span.icon.icon-lg.margin-right verified_user
               span= 'Hi, '
                 strong
                 = user.firstName + ' ' + user.lastName
-          li
-            a.padding-right-lg.waves-attach(href="javascript:void(0)")
-              span.icon.icon-lg.margin-right add_to_photos
-              Upload Photo
           li
             a.padding-right-lg.waves-attach(href="/auth/logout")
               span.icon.icon-lg.margin-right exit_to_app

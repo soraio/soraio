@@ -38,7 +38,7 @@ route.use('/backend[\/]?*', ensureAuthenticated, function(req, res, next) {
 route.get('(\/+(wp-)?admin)|(\/+dashboad)|(\/+backend)', ensureAuthenticated, function(req, res, next){
   res.redirect('/backend/dashboard')
 })
-route.use('/backend/users/+(add|delete|edit)+/:pid?', function(req, res, next) {
+route.use('/backend/+(users/+(add|delete|edit)+/:pid?|settings)', function(req, res, next) {
   switch (req.user.role_id) {
     case 1:
       return next()

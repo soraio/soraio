@@ -1,0 +1,38 @@
+extends ../backend-layout.pug
+
+block body
+  article.content.dashboard-page
+    .title-block
+      h3.title Settings
+        span.sparkline.bar(data-type="bar")
+    form(name="item", method="post")
+      .card.card-block
+        .form-group.row
+          label.col-sm-3.form-control-label.text-xs-right(for="siteTitle") Site Title:
+          .col-sm-9
+            input.form-control.underlined(type="text", name="siteTitle", placeholder="Site Title", value=site_title, required)
+        .form-group.row
+          label.col-sm-3.form-control-label.text-xs-right(for="siteDescription") Site Descriptions:
+          .col-sm-9
+            textarea.form-control.underlined(name="siteDescription", placeholder="Site Descriptions", required)= site_description
+        .form-group.row
+          label.col-sm-3.form-control-label.text-xs-right(for="siteIrc") Site IRC:
+          .col-sm-9
+            input.form-control.underlined(type="text", name="siteIrc", placeholder="Site IRC", value=site_irc)
+        .form-group.row
+          label.col-sm-3.form-control-label.text-xs-right(for="siteFavicon") Site Favicon:
+          .col-sm-9
+            input.form-control.underlined(type="text", name="siteFavicon", placeholder="Site Favicon", value=site_favicon)
+        .form-group.row
+          label.col-sm-3.form-control-label.text-xs-right(for="sitePageRows") Pagination:
+          .col-sm-1
+            input.form-control.underlined(type="text", name="sitePageRows", placeholder="10", value=site_page_rows, required)
+          .col-sm-9.col-sm-offset-3
+            small page per rows.
+        .form-group.row
+          .col-sm-9.col-sm-offset-3
+            .row
+              .col-sm-2
+                button.form-control.btn.btn-primary(type="submit") Save
+              .col-sm-2
+                a.form-control.btn.btn-danger(href="/backend/dashboard") Cancel
