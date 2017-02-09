@@ -9,7 +9,6 @@ header.header.header-transparent.header-color-black.header-waterfall.ui-header
     li.dropdown.margin-right
       a.dropdown-toggle.padding-left-no.padding-right-no(data-toggle="dropdown")
         if user
-          span.access-hide user.firstName user.lastName
           span.avatar.avatar-sm
             img(avatar=user.firstName + ' ' + user.lastName)
         else
@@ -18,12 +17,16 @@ header.header.header-transparent.header-color-black.header-waterfall.ui-header
       ul.dropdown-menu.dropdown-menu-right
         if user
           li
-            - var dashboard = (user.role_id != 3) ? '/backend/dashboard' : ''
-            a.padding-right-lg.waves-attach(href=dashboard)
-              span.icon.icon-lg.margin-right verified_user
+            a.padding-right-lg.waves-attach(href="/profile")
+              span.icon.icon-lg.margin-right perm_identity
               span= 'Hi, '
                 strong
                 = user.firstName + ' ' + user.lastName
+          if user.role_id === 1
+            li
+              a.padding-right-lg.waves-attach(href="/backend/dashboard")
+                span.icon.icon-lg.margin-right verified_user
+                | Dashboard
           li
             a.padding-right-lg.waves-attach(href="/auth/logout")
               span.icon.icon-lg.margin-right exit_to_app

@@ -1,0 +1,35 @@
+extends ../auth-layout.pug
+
+block body
+  .row
+    .col-lg-4.col-lg-push-4.col-sm-6.col-sm-push-3
+      section.content-inner
+        .card
+          .card-main
+            .card-header
+              .card-header-side.pull-left
+                .avatar
+                  img(avatar=profile.firstName + ' ' + profile.lastName)
+              .card-inner
+                  h1.card-heading Member Card
+              .card-header-side.pull-right
+                if profile.role_id === 1
+                  span.label.label-brand= profile.role.role
+                else if profile.role_id === 2
+                  span.label.label-green= profile.role.role
+                else
+                  span.label= profile.role.role
+            .card-img
+              img(alt=profile.firstName + " " + profile.lastName + " profile cover", src="/node_modules/daemonite-material/images/samples/landscape.jpg", style="width: 100%;")
+              h3.card-img-heading= profile.firstName + " " + profile.lastName
+            .card-inner
+              .form-group
+                .row
+                  .col-md-12.text-right= 'Joined ' + moment(profile.created_at).fromNow() +'.'
+            .card-action
+              .card-action-btn.pull-left
+                a.btn.btn-flat.text-black.waves-attach(href="mailto:" + profile.email) Email
+                a.btn.btn-flat.text-black.waves-attach Message
+              .card-action-btn.pull-right
+                if user.id === profile.id
+                  a.btn.btn-flat.text-black.waves-attach(href="/profile/edit") Edit

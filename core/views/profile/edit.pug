@@ -1,0 +1,56 @@
+extends ../auth-layout.pug
+
+block body
+  .row
+    .col-lg-4.col-lg-push-4.col-sm-6.col-sm-push-3
+      section.content-inner
+        .card
+          .card-main
+            .card-header
+              .card-inner
+                h1.card-heading Update Account
+            .card-inner
+              form.form(method="post")
+                .row
+                  .form-group.form-group-label
+                    .col-md-5.col-md-push-1
+                      label.floating-label(for="ui_signup_firstname") First Name
+                      input#ui_signup_firstname.form-control(type="text", name="firstName", value=user.firstName)
+                  .form-group.form-group-label
+                    .col-md-5.col-md-push-1
+                      label.floating-label(for="ui_signup_lastname") Last Name
+                      input#ui_signup_lastname.form-control(type="text", name="lastName", value=user.lastName)
+                .form-group.form-group-label
+                  .row
+                    .col-md-10.col-md-push-1
+                      label.floating-label(for="ui_signup_email") Input your email address
+                      input#ui_signup_email.form-control(type="email", name="email", value=user.email)
+                .form-group.form-group-label
+                  .row
+                    .col-md-10.col-md-push-1
+                      label.floating-label(for="ui_signup_username") Input your username
+                      input#ui_signup_username.form-control(type="text", name="username", value=user.username)
+                .form-group.form-group-label
+                  .row
+                    .col-md-10.col-md-push-1
+                      label.floating-label(for="ui_signup_password") Old password
+                      input#ui_signup_password.form-control(type="password", name="oldpassword")
+                .form-group.form-group-label
+                  .row
+                    .col-md-10.col-md-push-1
+                      label.floating-label(for="ui_signup_password") New password
+                      input#ui_signup_password.form-control(type="password", name="password")
+                .form-group.form-group-label
+                  .row
+                    .col-md-10.col-md-push-1
+                      label.floating-label(for="ui_signup_copassword") Confirm new password
+                      input#ui_signup_copassword.form-control(type="password", name="copassword")
+                .form-group.form-group-label
+                  .row
+                    .col-md-10.col-md-push-1
+                      label.floating-label(for="ui_signup_birth") Birthday
+                      input#ui_signup_birth.form-control(type="text", name="birth", value=moment(user.birth).format('ddd, DD MMM, YYYY'))
+                .form-group
+                  .row
+                    .col-md-10.col-md-push-1
+                      button.btn.btn-block.btn-sora.waves-attach.waves-effect(type="submit") Save

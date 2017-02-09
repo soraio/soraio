@@ -12,6 +12,7 @@ var express = require('express'),
     UsersController = require('./controllers/users'),
     DownloadsController = require('./controllers/downloads'),
     SettingsController = require('./controllers/settings'),
+    ProfileController = require('./controllers/profile'),
     csrf = require('csurf')
 
 /**
@@ -48,6 +49,7 @@ route.use('/backend/+(users/+(add|delete|edit)+/:pid?|settings)', function(req, 
       return res.redirect('/backend/dashboard')
   }
 })
+route.use('/profile', ensureAuthenticated, ProfileController)
 route.use('/backend/dashboard', DashboardController)
 route.use('/backend/posts', PostsController)
 route.use('/backend/projects', ProjectsController)
