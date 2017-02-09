@@ -60,4 +60,13 @@ ProfileController.route('/edit')
   })
 })
 
+ProfileController.route('/:user')
+.get(function(req, res, next) {
+  User
+  .findOne({username: req.params.user}, {withRelated: ['role']})
+  .then(function(user) {
+    return res.render('profile/profile', {user: req.user, profile: user.toJSON(), message: req.flash('info')})
+  })
+})
+
 module.exports = ProfileController
