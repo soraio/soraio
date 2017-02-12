@@ -31,5 +31,6 @@ block body
                 a.btn.btn-flat.text-black.waves-attach(href="mailto:" + profile.email) Email
                 a.btn.btn-flat.text-black.waves-attach Message
               .card-action-btn.pull-right
-                if user.id === profile.id
-                  a.btn.btn-flat.text-black.waves-attach(href="/profile/edit") Edit
+                if user
+                  if user.id === profile.id
+                    a.btn.btn-flat.text-black.waves-attach(href="/profile/edit") Edit

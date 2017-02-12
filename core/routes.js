@@ -51,7 +51,7 @@ route.use('/backend/+(users/+(add|delete|edit)+/:pid?|settings)', function(req, 
       return res.redirect('/backend/dashboard')
   }
 })
-route.use('/profile', ensureAuthenticated, ProfileController)
+route.use('/profile', ProfileController)
 route.use('/backend/dashboard', DashboardController)
 route.use('/backend/posts', PostsController)
 route.use('/backend/projects', ProjectsController)

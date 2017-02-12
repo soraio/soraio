@@ -22,7 +22,7 @@ header.header.header-transparent.header-color-black.header-waterfall.ui-header
               span= 'Hi, '
                 strong
                 = user.firstName + ' ' + user.lastName
-          if user.role_id === 1
+          if user.role_id != 3
             li
               a.padding-right-lg.waves-attach(href="/backend/dashboard")
                 span.icon.icon-lg.margin-right verified_user

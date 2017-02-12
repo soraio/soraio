@@ -11,14 +11,23 @@ var express = require('express'),
 
 ProfileController.route('/')
 .get(function(req, res, next) {
+  if (!req.isAuthenticated())
+    return res.redirect('/auth/login')
+
   return res.render('profile/profile', {user: req.user, profile: req.user, message: req.flash('info')})
 })
 
 ProfileController.route('/edit')
 .get(function(req, res, next) {
+  if (!req.isAuthenticated())
+    return res.redirect('/auth/login')
+
   return res.render('profile/edit', {user: req.user, message: req.flash('info')})
 })
 .post(function(req, res, next) {
+  if (!req.isAuthenticated())
+    return res.redirect('/auth/login')
+
   var data = req.body,
       user = req.user
 
@@ -66,6 +75,9 @@ ProfileController.route('/:user')
   .findOne({username: req.params.user}, {withRelated: ['role']})
   .then(function(user) {
     return res.render('profile/profile', {user: req.user, profile: user.toJSON(), message: req.flash('info')})
+  })
+  .catch(function(err) {
+    next()
   })
 })
 
