@@ -46,3 +46,54 @@ h1.content-heading
 .card-block img
     margin: 20px auto
     display: block
+.chats
+  position: relative
+  list-style: none
+  padding: 20px 10px 0 10px
+  margin: 0
+  height: 347px
+  overflow-y: scroll
+  overflow-x: hidden
+  background-color: #edeff2
+
+  .message
+    display: inline-block
+    padding: 20px
+    position: relative
+    background-color: #fff
+
+  .left
+    .avatar
+      float: left
+
+    .message
+      &::before
+        top: 7.5px
+        border: solid transparent
+        content: " "
+        height: 0
+        width: 0
+        position: absolute
+        pointer-events: none
+        border-width: 15px
+        margin-top: -2px
+        right: 100%
+        border-right-color: #fff
+
+  .right
+    .avatar
+      float: right
+
+    .message
+      &::after
+        top: 7.5px
+        border: solid transparent
+        content: " "
+        height: 0
+        width: 0
+        position: absolute
+        pointer-events: none
+        border-width: 15px
+        margin-top: -2px
+        left: 100%
+        border-left-color: #fff
