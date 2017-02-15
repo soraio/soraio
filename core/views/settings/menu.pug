@@ -1,0 +1,28 @@
+extends ../backend-layout.pug
+
+block body
+  article.content.dashboard-page
+    .title-block
+      h3.title Site Menu
+      p.title-description Setting up your website menu.
+    .card.card-block
+      .form-group.row
+        label.col-sm-3.col-sm-offset-1.form-control-label(for="menuname") Menu Name
+        label.col-sm-3.form-control-label(for="menuurl") Menu URL
+      .site-menu
+        if menu_parents && menu_parents.length
+          for menu in menu_parents
+            .form-group.row.menu-items(data-id=menu.id)
+              .col-sm-1
+                span.form-control.text-sm-center.drag-handle(style="border:none;cursor:pointer;")
+                  i.fa.fa-ellipsis-v
+                  | &nbsp;
+                  i.fa.fa-ellipsis-v
+              .col-sm-3
+                input.form-control.underlined(name="menu_name", placeholder="Menu Name", type="text", value=menu.menu)
+              .col-sm-3
+                input.form-control.underlined(name="menu_url", placeholder="Menu URL", type="text", value=menu.url)
+              .col-sm-1
+                button.btn.btn-warning-outline.btn-sm.text-sm-center.js-remove(data-id=menu.id)
+                  i.fa.fa-times
+      button.col-sm-offset-1.btn.btn-primary.add-menu(type="button") Add

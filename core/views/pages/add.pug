@@ -1,0 +1,29 @@
+extends ../backend-layout.pug
+
+block body
+  article.content.dashboard-page
+    .title-block
+      h3.title Create a New Page
+        span.sparkline.bar(data-type="bar")
+    form(name="item", method="post")
+      .card.card-block
+        .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="title") Title:
+          .col-sm-10
+            input.form-control.underlined(type="text", name="title", placeholder="Some title here ...")
+        .form-group.row
+          label.col-sm-2.form-control-label.text-xs-right(for="content") Content:
+          .col-sm-10
+            textarea#simplemde-npm(name="content")
+            script.
+              var simplemde = new SimpleMDE({ element: document.getElementById("simplemde-npm"), forceSync: true, placeholder: "Type some descriptions here ...", spellChecker: false });
+              simplemde.codemirror.on("change", function(){
+                  console.log(simplemde.value());
+              });
+        .form-group.row
+          .col-sm-10.col-sm-offset-2
+            .row
+              .col-sm-2
+                button.form-control.btn.btn-primary(type="submit") Save
+              .col-sm-2
+                a.form-control.btn.btn-danger(href="/backend/dashboard") Cancel

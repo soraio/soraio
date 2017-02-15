@@ -1,5 +1,5 @@
 /**
-  * Project model.
+  * Role model.
   */
 var dbPrefix = require('../../conf/config').dbPrefix,
     SoraBookshelf = require('../db/database'),

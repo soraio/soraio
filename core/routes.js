@@ -8,6 +8,7 @@ var express = require('express'),
     AuthController = require('./controllers/auth'),
     DashboardController = require('./controllers/dashboard'),
     PostsController = require('./controllers/posts'),
+    PagesController = require('./controllers/pages'),
     ProjectsController = require('./controllers/projects'),
     UsersController = require('./controllers/users'),
     DownloadsController = require('./controllers/downloads'),
@@ -22,7 +23,6 @@ var express = require('express'),
 // Public section
 route.use('/', IndexController)
 route.use('/downloads', DownloadsController)
-route.use('/api', ApiController)
 
 // Secure section, needs authenticated user to access this rules
 route.use('/backend[\/]?*', ensureAuthenticated, function(req, res, next) {
@@ -51,9 +51,12 @@ route.use('/backend/+(users/+(add|delete|edit)+/:pid?|settings)', function(req, 
       return res.redirect('/backend/dashboard')
   }
 })
+route.post('/api/menu', ensureAuthenticated)
 route.use('/profile', ProfileController)
+route.use('/api', ApiController)
 route.use('/backend/dashboard', DashboardController)
 route.use('/backend/posts', PostsController)
+route.use('/backend/pages', PagesController)
 route.use('/backend/projects', ProjectsController)
 route.use('/backend/users', UsersController)
 route.use('/backend/settings', SettingsController)

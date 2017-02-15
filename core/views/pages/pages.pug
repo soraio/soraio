@@ -1,0 +1,69 @@
+extends ../backend-layout.pug
+
+block body
+  article.content.items-list-page
+    .title-block
+      h3.title= 'Create a New Page '
+        a.btn.btn-primary.btn-sm(href="/backend/pages/add") Add New
+      p.title-description List of all pages.
+    .card.items
+      ul.item-list.striped
+        li.item.item-list-header.hidden-sm-down
+          .item-row
+            .item-col.item-col-header.item-col-title
+              div
+                span Title
+            .item-col.item-col-header.item-col-author
+              div
+                span Author
+            .item-col.item-col-header.item-col-created_at
+              div
+                span Created at
+            .item-col.item-col-header.item-col-updated_at
+              div
+                span Updated at
+            .item-col.item-col-header.fixed.item-col-actions-dropdown
+        if posts
+          for post in posts
+            li.item
+              .item-row
+                .item-col.pull-left.item-col-title
+                  div
+                    a(href="/pages/" + post.slug + "")
+                      h4.item-title= post.title
+                .item-col.item-col-author.text-sm-left.text-xs-left
+                  .item-heading Author
+                  div
+                    span= post.user.firstName + ' ' + post.user.lastName
+                .item-col.item-col-created_at.text-sm-left.text-xs-left
+                  .item-heading Created at
+                  div
+                    span= moment(post.created_at).fromNow()
+                .item-col.item-col-updated_at.text-sm-left.text-xs-left
+                  .item-heading Updated at
+                  div
+                    span= moment(post.updated_at).fromNow()
+                .item-col.fixed.item-col-actions-dropdown
+                  if user.role.role === 'admin' || post.user_id === user.id
+                    .item-actions-dropdown
+                      a.item-actions-toggle-btn
+                        span.inactive
+                          i.fa.fa-cog
+                        span.active
+                          i.fa.fa-chevron-circle-right
+                      .item-actions-block
+                        ul.item-actions-list
+                          li
+                            a.view(href="/pages/" + post.slug)
+                              i.fa.fa-eye
+                          li
+                            a.remove(href="/backend/pages/delete/" + post.id, data-toggle="modal", data-target="#confirm-modal")
+                              i.fa.fa-trash-o
+                          li
+                            a.edit(href="/backend/pages/edit/" + post.id)
+                              i.fa.fa-pencil
+                  if user.role.role != 'admin' && post.user_id != user.id
+                    .item-actions-block
+                      a.view(href="/pages/" + post.slug)
+                        i.fa.fa-eye
+    include ../partials/back-pagination

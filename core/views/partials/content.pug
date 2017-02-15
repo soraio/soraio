@@ -43,14 +43,15 @@ main.content
                   else
                     h1.card-heading Releases
               .card-inner.margin-bottom-no
-                if post
+                if post || page
                   ul.breadcrumb
                     li
                       a(href="/") Home
-                    li
-                      a(href="/projects/" + post.project.slug)= post.project.title
+                    if post
+                      li
+                        a(href="/projects/" + post.project.slug)= post.project.title
                     li.active
-                      a= post.title
+                      a= (page) ? page.title : post.title
                 block body
               if project
                 .card-action

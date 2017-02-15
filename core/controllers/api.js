@@ -5,7 +5,8 @@ var express = require('express'),
     ApiController = express.Router(),
     // include Setting model
     User = require('../models/user'),
-    Chat = require('../models/chat')
+    Chat = require('../models/chat'),
+    Menu = require('../models/menu')
 
 ApiController.route('/chats')
 .get(function(req, res, next) {
@@ -46,4 +47,12 @@ ApiController.route('/chats')
   })
 })
 
+ApiController.route('/menu')
+.post(function(req, res, next) {
+  Menu
+  .upsert({key: 'menu_parents'}, {value: req.body.menu_parents})
+  .then(function(parent) {
+    return res.json(parent.toJSON())
+  })
+})
 module.exports = ApiController

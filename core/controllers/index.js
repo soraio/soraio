@@ -5,13 +5,15 @@ var express = require('express'),
     IndexController = express.Router(),
     // include Post model
     Post = require('../models/post'),
-    Project = require('../models/project')
+    Project = require('../models/project'),
+    Page = require('../models/page')
 
 /**
   * GET / rules.
   */
-IndexController.route('(/pages/:pid?|/)?')
+IndexController.route('(/pagies/:pid?|/)?')
 .get(function(req, res, next) {
+
   Post.forge()
   .orderBy("-created_at")
   .fetchPage({
@@ -24,7 +26,7 @@ IndexController.route('(/pages/:pid?|/)?')
         current_next = posts.pagination.page,
         size = posts.pagination.pageCount,
         pages = {
-          uri: req.baseUrl + '/pages/',
+          uri: req.baseUrl + '/pagies/',
           next: (current_next < size) ? current_next += 1 : false,
           prev: (current_prev > 0) ? current_prev -= 1 : false,
           total: size,
@@ -59,6 +61,36 @@ IndexController.route('/posts/:slug')
         res.render('posts/single', {user: req.user, post: post, pages: pages, message: req.flash('info')})
       }
     }
+    next()
+  })
+  .catch(function(err) {
+    next(err)
+  })
+})
+
+/**
+  * GET /pages/:slug rules.
+  * @param slug {page_slug}.
+  */
+IndexController.route('/pages/:slug')
+.get(function(req, res, next) {
+  var slug = req.params.slug
+  Page
+  .fetchAll({withRelated: ['user']})
+  .then(function(posts) {
+    posts = posts.toJSON()
+    for (var i = 0; i < posts.length; i++) {
+      if (posts[i].slug === slug){
+        var post = posts[i],
+            pages = {
+              uri: req.baseUrl,
+              next: posts[i+1] ? posts[i+1].slug : false,
+              prev: posts[i-1] ? posts[i-1].slug : false
+            }
+        res.render('pages/single', {user: req.user, page: post, pages: pages, message: req.flash('info')})
+      }
+    }
+    next()
   })
   .catch(function(err) {
     next(err)
