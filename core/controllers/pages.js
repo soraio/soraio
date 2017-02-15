@@ -28,7 +28,8 @@ PagesController.route('/add')
       title: item.title,
       slug: slugifies(item.title + '-' + index, {lower: true}),
       user_id: req.user.id,
-      content: item.content
+      content: item.content,
+      publish: (item.publish == "false") ? false : true
     })
     .then(function(page) {
       req.flash('info', 'Page ' + item.title + ' has been created.')
@@ -45,10 +46,75 @@ PagesController.route('/add')
       title: item.title,
       slug: slugifies(item.title, {lower: true}),
       user_id: req.user.id,
-      content: item.content
+      content: item.content,
+      publish: (item.publish == "false") ? false : true
     })
     .then(function(page) {
       req.flash('info', 'Page ' + item.title + ' has been created.')
+      res.redirect('/backend/pages/all')
+    })
+    .catch(function(err) {
+      next(err)
+    })
+  })
+})
+
+PagesController.route('/edit/:pid')
+.get(function(req, res, next) {
+  Page
+  .findById(req.params.pid)
+  .then(function(page) {
+    res.render('pages/edit', {user: req.user, page: page.toJSON()})
+  })
+  .catch(function(err) {
+    req.flash('info', 'Couldn\'t find page by id ' + req.params.pid)
+    res.redirect('/backend/pages/all')
+  })
+})
+.post(function(req, res, next) {
+  var item = req.body,
+      user = req.user
+  Page
+  .where({title: item.title})
+  .fetchAll({require: true})
+  .then(function(pages) {
+    var pages = pages.toJSON(),
+        index = pages.length++
+    Page
+    .upsert({
+      id: item.pid
+    },
+    {
+      title: item.title,
+      slug: slugifies(item.title + '-' + index, {lower: true}),
+      user_id: req.user.id,
+      content: item.content,
+      publish: (item.publish == "false") ? false : true
+    })
+    .then(function(page) {
+      var mark = (page.publish) ? 'published' : 'drafted'
+      req.flash('info', 'Page ' + item.title + ' has been updated and marked as ' + mark +'.')
+      res.redirect('/backend/pages/all')
+    })
+    .catch(function(err) {
+      req.flash('info', 'Page ' + item.title + ' couldn\'t be updated.')
+        res.redirect('/backend/pages/all')
+    })
+  })
+  .catch(function(err) {
+    Page
+    .upsert({
+      id: item.pid
+    },
+    {
+      title: item.title,
+      slug: slugifies(item.title, {lower: true}),
+      user_id: req.user.id,
+      content: item.content,
+      publish: (item.publish == "false") ? false : true
+    })
+    .then(function(page) {
+      req.flash('info', 'Page ' + item.title + ' has been updated.')
       res.redirect('/backend/pages/all')
     })
     .catch(function(err) {

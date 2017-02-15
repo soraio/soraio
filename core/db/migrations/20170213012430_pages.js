@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('title')
     table.string('slug')
     table.text('content')
+    table.boolean('publish')
     table.integer('user_id').references(dbPrefix + 'users.id')
     table.timestamps()
   })

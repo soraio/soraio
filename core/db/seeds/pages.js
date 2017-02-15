@@ -10,6 +10,7 @@ exports.seed = function(knex, Promise) {
           slug: 'about',
           content: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
           user_id: 1,
+          publish: true,
           created_at: new Date(),
           updated_at: new Date()
 
@@ -19,6 +20,7 @@ exports.seed = function(knex, Promise) {
           slug: 'staff',
           content: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
           user_id: 2,
+          publish: true,
           created_at: new Date(),
           updated_at: new Date()
         })
