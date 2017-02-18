@@ -7,8 +7,8 @@ exports.up = function(knex, Promise) {
     table.text('content')
     table.string('dd_link')
     table.boolean('publish')
-    table.integer('anime_id').references(dbPrefix + 'animes.id')
-    table.integer('user_id').references(dbPrefix + 'users.id')
+    table.integer('anime_id')
+    table.integer('user_id')
     table.timestamps()
   })
 }
