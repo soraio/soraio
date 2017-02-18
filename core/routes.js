@@ -39,7 +39,7 @@ route.use('/backend[\/]?*', ensureAuthenticated, function(req, res, next) {
   }
 })
 route.get('(\/+(wp-)?admin)|(\/+dashboad)|(\/+backend)', ensureAuthenticated, function(req, res, next){
-  res.redirect('/backend/dashboard')
+  return res.redirect('/backend/dashboard')
 })
 route.use('/backend/+(users/+(add|delete|edit)+/:pid?|settings)', function(req, res, next) {
   switch (req.user.role_id) {
@@ -69,9 +69,6 @@ route.use('/auth', AuthController)
   * Function to ensure if the client is authenticated
   */
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated())
-    return next()
-  else
-    res.redirect('/auth/login')
+  return req.isAuthenticated() ? next() : res.redirect('/auth/login')
 }
 module.exports = route
