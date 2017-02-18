@@ -8,7 +8,7 @@ module.exports = {
     * - staging
     * - production
     */
-  environment: 'production',
+  environment: 'development',
   port: 3000,
 
   /**
@@ -21,9 +21,9 @@ module.exports = {
     */
 
   dbPrefix          : 'sora_',
-  databaseHost      : 'localhost',
-  databaseUsername  : 'root',
-  databasePassword  : 'labs-zdumb',
-  databaseName      : 'sorairo_fansub'
+  databaseHost      : 'Hostname',
+  databaseUsername  : 'Username',
+  databasePassword  : 'Password',
+  databaseName      : 'Database'
 
 }
