@@ -7,13 +7,23 @@ node_js:
   - '7'
 
 install:
-  - 'npm install'
+  - npm install
 
 before_script:
-  - 'npm run-script dev-build'
+  - npm run-script dev-build
 
 notifications:
   email: false
+
+env:
+  - CXX=g++-4.8
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
 
 matrix:
   fast_finish: true
