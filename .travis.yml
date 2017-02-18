@@ -7,10 +7,10 @@ node_js:
   - '7'
 
 install:
-  - npm install
+  - 'npm install'
 
 before_script:
-  - npm run-script dev-build
+  - 'npm run-script dev-build'
 
 notifications:
   email: false
