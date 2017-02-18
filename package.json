@@ -7,7 +7,7 @@
     "build": "knex migrate:latest --env=production && knex seed:run --env=production",
     "dev-build": "knex migrate:latest --env=development && knex seed:run --env=development",
     "start": "node app",
-    "test": "mocha"
+    "test": "mocha --timeout 15000"
   },
   "keywords": [
     "anime",

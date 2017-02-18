@@ -9,7 +9,7 @@ var request = require('supertest'),
       pretty: true
     })
 describe('GET / index | GET / params', function() {
-  it('should respond with json', function(done) {
+  it('should respond with status 200 OK', function(done) {
     request(app)
     .get('/')
     .set('Accept', 'application/json')

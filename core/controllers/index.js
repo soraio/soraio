@@ -36,7 +36,7 @@ IndexController.route('(/pagies/:pid?|/)?')
     res.render('index', {user: req.user, posts: posts.toJSON(), pages: pages, message: req.flash('info')})
   })
   .catch(function(err) {
-    next()
+    next(err)
   })
 })
 
