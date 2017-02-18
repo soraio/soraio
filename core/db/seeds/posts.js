@@ -1,11 +1,11 @@
-
+var dbPrefix = require('../../../conf/config').dbPrefix
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries.
-  return knex('posts').truncate()
+  return knex(dbPrefix + 'posts').truncate()
     .then(function () {
       return Promise.all([
         // Inserts seed entries.
-        knex('posts').insert({
+        knex(dbPrefix + 'posts').insert({
           title: 'Hi no Youjin - Movie',
           slug: 'hi-no-youjin-movie',
           content: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
@@ -17,7 +17,7 @@ exports.seed = function(knex, Promise) {
           updated_at: new Date()
 
         }),
-        knex('posts').insert({
+        knex(dbPrefix + 'posts').insert({
           title: 'One Piece - Episode 01',
           slug: 'one-piece-episode-01',
           content: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',

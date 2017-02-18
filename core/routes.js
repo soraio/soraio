@@ -8,9 +8,13 @@ var express = require('express'),
     AuthController = require('./controllers/auth'),
     DashboardController = require('./controllers/dashboard'),
     PostsController = require('./controllers/posts'),
+    PagesController = require('./controllers/pages'),
     ProjectsController = require('./controllers/projects'),
     UsersController = require('./controllers/users'),
-    DownloadsController = require('./controllers/downloads')
+    DownloadsController = require('./controllers/downloads'),
+    SettingsController = require('./controllers/settings'),
+    ProfileController = require('./controllers/profile'),
+    ApiController = require('./controllers/api'),
     csrf = require('csurf')
 
 /**
@@ -35,9 +39,9 @@ route.use('/backend[\/]?*', ensureAuthenticated, function(req, res, next) {
   }
 })
 route.get('(\/+(wp-)?admin)|(\/+dashboad)|(\/+backend)', ensureAuthenticated, function(req, res, next){
-  res.redirect('/backend/dashboard')
+  return res.redirect('/backend/dashboard')
 })
-route.use('/backend/users/+(add|delete|edit)+/:pid?', function(req, res, next) {
+route.use('/backend/+(users/+(add|delete|edit)+/:pid?|settings)', function(req, res, next) {
   switch (req.user.role_id) {
     case 1:
       return next()
@@ -47,10 +51,15 @@ route.use('/backend/users/+(add|delete|edit)+/:pid?', function(req, res, next) {
       return res.redirect('/backend/dashboard')
   }
 })
+route.post('/api/menu', ensureAuthenticated)
+route.use('/profile', ProfileController)
+route.use('/api', ApiController)
 route.use('/backend/dashboard', DashboardController)
 route.use('/backend/posts', PostsController)
+route.use('/backend/pages', PagesController)
 route.use('/backend/projects', ProjectsController)
 route.use('/backend/users', UsersController)
+route.use('/backend/settings', SettingsController)
 
 // Secure section, needs csrftoken to access this rules
 route.use(csrf({ cookie: true }))
@@ -60,9 +69,6 @@ route.use('/auth', AuthController)
   * Function to ensure if the client is authenticated
   */
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated())
-    return next()
-  else
-    res.redirect('/auth/login')
+  return req.isAuthenticated() ? next() : res.redirect('/auth/login')
 }
 module.exports = route

@@ -67,9 +67,9 @@ DownloadsController.route('/:project/:post')
         uri: req.baseUrl + '/token/',
         next: false,
         prev: false
-      },
-          post = post.toJSON(),
-          download = {
+      }
+          post = post.toJSON()
+      var download = {
             title: post.title,
             ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
             token: token

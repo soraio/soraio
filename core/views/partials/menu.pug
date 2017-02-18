@@ -1,41 +1,9 @@
 nav#ui_menu.menu(aria-hidden="true", tabindex="-1")
   .menu-scroll
     .menu-content
-      a.menu-logo(href="/")= site
-      ul.nav
-        li
-          a.waves-attach(data-toggle="collapse", href="#ui_sora_about") About
-          ul#ui_sora_about.menu-collapse.collapse
+      a.menu-logo(href="/")= site_title
+      if menu_parents && menu_parents.length
+        ul.nav
+          for menu in menu_parents
             li
-              a.waves-attach(href="/") Staff
-            li
-              a.waves-attach(href="/") Ikki
-                small.margin-left-xs (9 November 2014)
-        li
-          a.waves-attach(href="/") Donation
-        li
-          a.waves-attach(href="/") Projects
-        li
-          a.waves-attach(href="/") Recruitment
-        li
-          a.waves-attach(href="/") DDL
-        li
-          a.waves-attach(href="/") Torrent
-        li
-          a.waves-attach(data-toggle="collapse", href="#ui_sora_portal") Playback & Portals
-          ul#ui_sora_portal.menu-collapse.collapse
-            li
-              a.waves-attach(href="/") Playback
-            li
-              a.waves-attach(href="/") Portal
-            li
-              a.waves-attach(href="/") Web IRC
-            li
-              a.waves-attach(href="/") Sorairo Server Tools
-            hr
-            li
-              a.waves-attach(href="/") Horizon Sora Iro
-            li
-              a.waves-attach(href="/") ghosted
-            li
-              a.waves-attach(href="/", title="鹿乃") 鹿乃.gq
+              a.waves-attach(href=menu.url)= menu.menu

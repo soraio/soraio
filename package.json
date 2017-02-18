@@ -1,12 +1,13 @@
 {
-  "name": "sora.iro",
+  "name": "soraio",
   "version": "0.0.1",
-  "description": "anime fansub",
+  "description": "An app for Fansubs Management System",
   "main": "app.js",
   "scripts": {
-    "debug": "DEBUG=soraio:* node app",
+    "build": "knex migrate:latest --env=production && knex seed:run --env=production",
+    "dev-build": "knex migrate:latest --env=development && knex seed:run --env=development",
     "start": "node app",
-    "test": "mocha"
+    "test": "mocha --timeout 15000"
   },
   "keywords": [
     "anime",
@@ -15,7 +16,7 @@
   "author": "Eries Trisnadi <zdumb1885@outlook.com>",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^0.8.7",
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
     "bookshelf": "^0.10.2",
     "bookshelf-modelbase": "^2.10.1",
@@ -32,18 +33,22 @@
     "method-override": "^2.3.6",
     "moment": "^2.16.0",
     "mysql": "^2.12.0",
-    "node-sass-middleware": "^0.10.0",
+    "node-sass-middleware": "^0.11.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "passport-remember-me": "0.0.1",
     "pug": "^2.0.0-beta6",
+    "request": "^2.79.0",
     "simplemde": "^1.11.2",
     "slug": "^0.9.1",
+    "sortablejs": "^1.5.0-rc1",
     "sqlite3": "^3.1.8"
   },
   "devDependencies": {
+    "knex": "^0.12.6",
     "mocha": "^3.1.2",
+    "mocha-jshint": "^2.3.1",
     "should": "^11.1.1",
-    "supertest": "^2.0.1"
+    "supertest": "^3.0.0"
   }
 }

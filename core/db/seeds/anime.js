@@ -1,11 +1,11 @@
-
+var dbPrefix = require('../../../conf/config').dbPrefix
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('animes').del()
+  return knex(dbPrefix + 'animes').del()
     .then(function () {
       return Promise.all([
         // Inserts seed entries
-        knex('animes').insert({
+        knex(dbPrefix + 'animes').insert({
           id: 1,
           title: 'Hi no Youjin',
           type: 'Movie',
@@ -18,7 +18,7 @@ exports.seed = function(knex, Promise) {
           created_at: new Date(),
           updated_at: new Date()
         }),
-        knex('animes').insert({
+        knex(dbPrefix + 'animes').insert({
           id: 2,
           title: 'One Piece',
           type: 'TV',

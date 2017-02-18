@@ -20,15 +20,10 @@ module.exports = {
     * @param databaseName {string} - Your Database Name
     */
 
-  // databaseHost      : 'localhost',
-  // databaseUsername  : 'user',
-  // databasePassword  : 'pass',
-  // databaseName      : 'database_name'
-
-  databaseHost      : 'localhost',
-  databaseUsername  : 'onlineak',
-  databasePassword  : 'indo12soft345',
-  databaseName      : 'Sorairo_Fansub'
-
+  dbPrefix          : 'sora_',
+  databaseHost      : 'Hostname',
+  databaseUsername  : 'Username',
+  databasePassword  : 'Password',
+  databaseName      : 'Database'
 
 }

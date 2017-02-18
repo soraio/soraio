@@ -3,9 +3,30 @@ main.content
     .container
       .row
         .col-md-8.col-md-offset-2.col-xs-12
-          h1.content-heading= site
-          h4.content-heading= irc
+          h1.content-heading= site_title
+          h4.content-heading= site_irc
   .container
+    if user
+      .row
+        .col-md-8.col-md-offset-2.col-xs-12
+          section.content-inner.margin-top-no
+            .card
+              .card-main
+                .card-header
+                  .card-inner
+                    h1.card-heading Chat
+                  .card-header-side.card-action-btn.pull-right
+                    a.btn.btn-flat.waves-attach.waves-effect.collapsed(data-toggle="collapse", href="#chats")
+                      span.collapsed-hide Close
+                      span.collapsed-show Open
+                #chats.card-inner.collapse.collapsible-region.chats.row
+                .card-action.chat-action
+                  .card-action-btn.form-group.row
+                    form#chats
+                      .col-md-8.col-md-offset-1
+                        input.form-control(type="text", placeholder="Type messages here ...")
+                      .col-md-2
+                        button.btn.btn-sora.form-control(type="submit") Send
     .row
       .col-md-8.col-md-offset-2.col-xs-12
         section.content-inner.margin-top-no
@@ -22,14 +43,15 @@ main.content
                   else
                     h1.card-heading Releases
               .card-inner.margin-bottom-no
-                if post
+                if post || page
                   ul.breadcrumb
                     li
                       a(href="/") Home
-                    li
-                      a(href="/projects/" + post.project.slug)= post.project.title
+                    if post
+                      li
+                        a(href="/projects/" + post.project.slug)= post.project.title
                     li.active
-                      a= post.title
+                      a= (page) ? page.title : post.title
                 block body
               if project
                 .card-action

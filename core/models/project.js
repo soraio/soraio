@@ -1,10 +1,11 @@
 /**
   * Project model.
   */
-var SoraBookshelf = require('../db/database'),
+var dbPrefix = require('../../conf/config').dbPrefix,
+    SoraBookshelf = require('../db/database'),
     Post = require('./post'),
     Project = SoraBookshelf.Model.extend({
-      tableName: 'animes',
+      tableName: dbPrefix + 'animes',
       hasTimestamps: true,
 
       // Relation One-to-Many Project-to-Posts.

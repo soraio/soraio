@@ -4,7 +4,7 @@ html.no-js(lang="en")
     meta(charset="utf-8")
     link(rel="canonical" href=".")
     meta(http-equiv="x-ua-compatible", content="ie=edge")
-    title= site
+    title= site_title
     meta(name="description", content="Sora Iro Fansubs - Dashboard")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel="apple-touch-icon", href="apple-touch-icon.png")
@@ -30,15 +30,12 @@ html.no-js(lang="en")
                   span.name
                     = user.firstName + ' ' + user.lastName
                 .dropdown-menu.profile-dropdown-menu.animated.flipInX(aria-labelledby="dropdownMenu1")
-                  a.dropdown-item(href="javascript:void(0)")
+                  a.dropdown-item(href="/")
+                    i.fa.fa-globe.icon
+                    |  Back to site
+                  a.dropdown-item(href="/profile")
                     i.fa.fa-user.icon
-                    |  Profile
-                  a.dropdown-item(href="javascript:void(0)")
-                    i.fa.fa-bell.icon
-                    |  Notifications
-                  a.dropdown-item(href="javascript:void(0)")
-                    i.fa.fa-gear.icon
-                    |  Settings
+                    |  Your profile
                   a.dropdown-item(href="/auth/logout")
                     i.fa.fa-power-off.icon
                     |  Logout
@@ -52,7 +49,7 @@ html.no-js(lang="en")
                   span.l.l3
                   span.l.l4
                   span.l.l5
-                = site
+                = site_title
             nav.menu
               ul#sidebar-menu.nav.metismenu
                 li.active
@@ -82,10 +79,10 @@ html.no-js(lang="en")
                     i.fa.arrow
                   ul.collapse(style="height: 0px;")
                     li
-                      a(href="javascript:void(0)")
+                      a(href="/backend/pages/add")
                         | Create a New Page
                     li
-                      a(href="javascript:void(0)")
+                      a(href="/backend/pages/all")
                         | All Pages
                 li
                   a(href="javascript:void(0)")
@@ -101,6 +98,18 @@ html.no-js(lang="en")
                         | All Projects
                 li
                   a(href="javascript:void(0)")
+                    i.fa.fa-desktop
+                    |  Appearance
+                    i.fa.arrow
+                  ul.collapse(style="height: 0px;")
+                    li
+                      a(href="/backend/projects/add")
+                        | Header Image
+                    li
+                      a(href="/backend/dashboard/menu")
+                        | Site Menu
+                li
+                  a(href="javascript:void(0)")
                     i.fa.fa-users
                     | Users
                     i.fa.arrow
@@ -112,10 +121,11 @@ html.no-js(lang="en")
                     li
                       a(href="/backend/users")
                         | All Users
-                li
-                  a(href="javascript:void(0)")
-                    i.fa.fa-gears
-                    | Settings
+                if user.role_id === 1
+                  li
+                    a(href="/backend/settings")
+                      i.fa.fa-gears
+                      | Settings
           footer.sidebar-footer
             ul#customize-menu.nav.metismenu
               li
@@ -163,7 +173,7 @@ html.no-js(lang="en")
                             span
                 a(href="")
                   i.fa.fa-cog
-                  |  Customize
+                  |  Dashboard Customize
         #sidebar-overlay.sidebar-overlay
         block body
         footer.footer
@@ -177,7 +187,7 @@ html.no-js(lang="en")
             ul
               li
                 | &copy;
-                a(href="/")= site
+                a(href="/")= site_title
                 | , 2012 - 2016
               li
                 a(href="/") MIT License
@@ -233,7 +243,9 @@ html.no-js(lang="en")
     script(src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js")
     script(src="/js/vendor.js")
     script(src="/node_modules/jquery-lazyload/jquery.lazyload.js")
+    script(src="/node_modules/sortablejs/Sortable.min.js")
     script(src="/js/app.js")
+    script(src="/js/menu.js")
     script(src="/js/letterAvatar.js")
     if message && message.length
       script.

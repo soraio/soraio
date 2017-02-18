@@ -4,7 +4,8 @@ var LocalStrategy = require('passport-local').Strategy,
     bcrypt = require('bcrypt'),
     passport = require('passport'),
     salt = bcrypt.genSaltSync(10),
-    User = require('./models/user')
+    User = require('./models/user'),
+    utils = require('./utils')
 
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
@@ -31,7 +32,7 @@ var LocalStrategy = require('passport-local').Strategy,
       },
 
         function(req, username, password, done) {
-            if(req.body.password != req.body.copassword){
+            if(req.body.password !== req.body.copassword){
               return done(null, false, req.flash('signupMessage', 'Password confirmation doesn\'t match.'))
             }
             var newUser = {
@@ -83,8 +84,9 @@ var LocalStrategy = require('passport-local').Strategy,
       function(req, username, password, done) { // callback with email and password from our form
         User.findOne({username: username})
         .then(function(user){
-          if(!bcrypt.compareSync(password, user.toJSON().password))
+          if(!bcrypt.compareSync(password, user.toJSON().password)){
             return done(null, false, req.flash('loginMessage', 'Oops! The username and password doesn\'t match.')) // create the loginMessage and save it to session as flashdata
+          }
 
           // all is well, return successful user
           return done(null, user.toJSON())
@@ -95,20 +97,47 @@ var LocalStrategy = require('passport-local').Strategy,
       })
   )
 
-  passport.use('remember-me', new RememberMeStrategy( function(token, done) {
-    Token.consume(token, function (err, user) {
+  // Remember Me cookie strategy
+  //   This strategy consumes a remember me token, supplying the user the
+  //   token was originally issued to.  The token is single-use, so a new
+  //   token is then issued to replace it.
+  passport.use(new RememberMeStrategy(
+    function(token, done) {
+      consumeRememberMeToken(token, function(err, uid) {
         if (err) { return done(err) }
-        if (!user) { return done(null, false) }
-        return done(null, user)
+        if (!uid) { return done(null, false) }
+
+        User.findById(uid, {withRelated: ['role']}).then(function(user){
+          done(null, user.toJSON())
+        }).catch(function(err){
+          done(err)
+        })
       })
     },
-    function(user, done) {
-      var token = utils.generateToken(64);
-      Token.save(token, { userId: user.id }, function(err) {
-        if (err) { return done(err) }
-        return done(null, token)
-      })
-    }
+    issueToken
   ))
 
+  /* Fake, in-memory database of remember me tokens */
+
+  var tokens = {}
+
+  function consumeRememberMeToken(token, fn) {
+    var uid = tokens[token]
+    // invalidate the single-use token
+    delete tokens[token]
+    return fn(null, uid)
+  }
+
+  function saveRememberMeToken(token, uid, fn) {
+    tokens[token] = uid
+    return fn()
+  }
+
+  function issueToken(user, done) {
+    var token = utils.randomString(64)
+    saveRememberMeToken(token, user.id, function(err) {
+      if (err) { return done(err) }
+      return done(null, token)
+    })
+  }
 module.exports = passport

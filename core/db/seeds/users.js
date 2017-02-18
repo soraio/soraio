@@ -1,14 +1,15 @@
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcrypt'),
+    dbPrefix = require('../../../conf/config').dbPrefix,
     // Generate a salt.
     salt = bcrypt.genSaltSync(10)
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries.
-  return knex('users').truncate()
+  return knex(dbPrefix + 'users').truncate()
     .then(function () {
       return Promise.all([
         // Inserts seed entries.
-        knex('users').insert({
+        knex(dbPrefix + 'users').insert({
           username: 'admin',
           password: bcrypt.hashSync('admin', salt),
           firstName: 'Eries',
@@ -20,7 +21,7 @@ exports.seed = function(knex, Promise) {
           created_at: new Date(),
           updated_at: new Date()
         }),
-        knex('users').insert({
+        knex(dbPrefix + 'users').insert({
           username: 'super',
           password: bcrypt.hashSync('super', salt),
           firstName: 'Mufti',

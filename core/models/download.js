@@ -1,10 +1,11 @@
 /**
   * Download model.
   */
-var SoraBookshelf = require('../db/database'),
+var dbPrefix = require('../../conf/config').dbPrefix,
+    SoraBookshelf = require('../db/database'),
 
     Download = SoraBookshelf.Model.extend({
-      tableName: 'downloads',
+      tableName: dbPrefix + 'downloads',
       hasTimestamps: true
     })
 

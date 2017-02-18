@@ -1,6 +1,6 @@
-
+var dbPrefix = require('../../../conf/config').dbPrefix
 exports.up = function(knex, Promise) {
-  return knex.schema.createTableIfNotExists('downloads', function (table) {
+  return knex.schema.createTableIfNotExists(dbPrefix + 'downloads', function (table) {
     table.increments('id').primary()
     table.string('ip')
     table.string('token')
@@ -10,5 +10,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('downloads')
+  return knex.schema.dropTableIfExists(dbPrefix + 'downloads')
 };
