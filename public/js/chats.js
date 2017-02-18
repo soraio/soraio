@@ -30,7 +30,8 @@ $(document).ready(function() {
       if(JSON.stringify(data) != JSON.stringify(chats)){
         chats = data
         $('#chats.chats').html('')
-        for (var i = data.length - 5; i < data.length; i++) {
+
+        for (var i = (data.length <= 5) ? 0 : data.length - 5; i < data.length; i++) {
           $('#chats.chats').append((data[i].position != 'right') ? chatAddLeft(data[i]) : chatAddRight(data[i]))
           LetterAvatar.transform()
         }

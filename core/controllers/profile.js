@@ -11,22 +11,25 @@ var express = require('express'),
 
 ProfileController.route('/')
 .get(function(req, res, next) {
-  if (!req.isAuthenticated())
+  if (!req.isAuthenticated()){
     return res.redirect('/auth/login')
+  }
 
   return res.render('profile/profile', {user: req.user, profile: req.user, message: req.flash('info')})
 })
 
 ProfileController.route('/edit')
 .get(function(req, res, next) {
-  if (!req.isAuthenticated())
+  if (!req.isAuthenticated()){
     return res.redirect('/auth/login')
+  }
 
   return res.render('profile/edit', {user: req.user, message: req.flash('info')})
 })
 .post(function(req, res, next) {
-  if (!req.isAuthenticated())
+  if (!req.isAuthenticated()){
     return res.redirect('/auth/login')
+  }
 
   var data = req.body,
       user = req.user
@@ -41,15 +44,17 @@ ProfileController.route('/edit')
   }, {id: user.id})
   .then(function(a) {
     req.user = a.toJSON()
-    if(data.password != data.copassword)
+    if(data.password !== data.copassword){
       req.flash('info', 'Password confirmation doesn\'t match.')
-    else if(data.oldpassword != '' && data.password != '' && !bcrypt.compareSync(data.oldpassword, user.password))
+    }else if(data.oldpassword !== '' && data.password !== '' && !bcrypt.compareSync(data.oldpassword, user.password)){
       req.flash('info', 'Wrong old password.')
-    else
+    }else{
       req.flash('info', 'Your profile has been updated.')
+    }
 
-    if(data.password != data.copassword || data.oldpassword === '' || data.password === '' || data.copassword === '' || !bcrypt.compareSync(data.oldpassword, user.password))
+    if(data.password !== data.copassword || data.oldpassword === '' || data.password === '' || data.copassword === '' || !bcrypt.compareSync(data.oldpassword, user.password)){
       return res.redirect('/profile')
+    }
 
     User
     .update({

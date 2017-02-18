@@ -16,7 +16,7 @@ UsersController.route('/add')
 .get(function(req, res, next) {
   Role.fetchAll()
   .then(function(roles) {
-    return res.render('users/add', {user: req.user, roles: roles.toJSON()})
+    return res.render('users/add', {user: req.user, roles: roles.toJSON(), message: req.flash('info')})
   })
   .catch(function(err) {
     next()
@@ -48,7 +48,7 @@ UsersController.route('/add')
         remember_token: null
       })
       .then(function(data) {
-        result = data.toJSON()
+        var result = data.toJSON()
         req.flash('info', 'New user with username ' + result.username + ' has been created.')
         return res.redirect('/backend/users')
       })
@@ -117,7 +117,7 @@ UsersController.route('/edit/:uid')
       remember_token: null
     })
     .then(function(data) {
-      var data = data.toJSON()
+      data = data.toJSON()
       if(!user.password){
         req.flash('info', 'User with username ' + data.username + ' has been updated.')
         return res.redirect('/backend/users')
@@ -125,7 +125,7 @@ UsersController.route('/edit/:uid')
       User
       .update({password: bcrypt.hashSync(user.password, salt)}, {id: data.id})
       .then(function(data){
-        var data = data.toJSON()
+        data = data.toJSON()
         req.flash('info', 'User with username ' + data.username + ' has been updated.')
         return res.redirect('/backend/users')
       })

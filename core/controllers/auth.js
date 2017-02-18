@@ -3,7 +3,8 @@
   */
 var express = require('express'),
     AuthController = express.Router(),
-    passport = require('passport')
+    passport = require('passport'),
+    utils = require('../utils')
 
 /**
   * GET and POST /auth/signup rules.
@@ -34,19 +35,18 @@ AuthController.route('/login')
   failureRedirect : '/auth/login', // redirect back to the signup page if there is an error
   failureFlash : true // allow flash messages
 }),
-function(req, res, next) {
-  // issue a remember me cookie if the option was checked
-  if (!req.body.ui_login_remember) { return next() }
+  function(req, res, next) {
+    // Issue a remember me cookie if the option was checked
+    if (!req.body.ui_login_remember) { return next() }
 
-  var token = utils.generateToken(64)
-  Token.save(token, { userId: req.user.id }, function(err) {
-    if (err) { return done(err) }
-    res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 }) // 7 days
-    return next()
-  })
-},
-function(req, res) {
-  res.redirect('/')
+    issueToken(req.user, function(err, token) {
+      if (err) { return next(err) }
+      res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 })
+      return next()
+    })
+  },
+  function(req, res) {
+    res.redirect('/')
 })
 
 /**
@@ -54,8 +54,32 @@ function(req, res) {
   */
 AuthController.route('/logout')
 .get(function(req, res, next) {
+  res.clearCookie('remember_me')
   req.logout()
   res.redirect('/')
 })
 
+/* Fake, in-memory database of remember me tokens */
+
+var tokens = {}
+
+function consumeRememberMeToken(token, fn) {
+  var uid = tokens[token]
+  // invalidate the single-use token
+  delete tokens[token]
+  return fn(null, uid)
+}
+
+function saveRememberMeToken(token, uid, fn) {
+  tokens[token] = uid
+  return fn()
+}
+
+function issueToken(user, done) {
+  var token = utils.randomString(64)
+  saveRememberMeToken(token, user.id, function(err) {
+    if (err) { return done(err) }
+    return done(null, token)
+  })
+}
 module.exports = AuthController

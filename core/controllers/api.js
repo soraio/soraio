@@ -15,10 +15,10 @@ ApiController.route('/chats')
   .fetchAll({withRelated: ['user']})
   .then(function(chats) {
     var b,
-        position,
-        chats = chats.toJSON()
-    for (a of chats) {
-      position = (!req.user || a.user_id != req.user.id) ? 'right' : 'left'
+        position
+    chats = chats.toJSON()
+    for (var a of chats) {
+      position = (!req.user || a.user_id !== req.user.id) ? 'right' : 'left'
       b = {
         message: a.message,
         username: a.user.username,
@@ -35,8 +35,9 @@ ApiController.route('/chats')
 })
 .post(function(req, res, next) {
   var uid = (!req.user) ? false : req.user.id
-  if(!uid)
+  if(!uid){
     return res.json({status: 'Chat not OK!'})
+  }
   Chat
   .create({message: req.body.message, user_id: uid})
   .then(function(chat) {

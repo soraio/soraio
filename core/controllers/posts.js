@@ -34,11 +34,11 @@ PostsController.route('/add')
     content: item.content,
     dd_link: item.ddl,
     anime_id: item.anime,
-    publish: (item.publish == "false") ? false : true
+    publish: (item.publish === "false") ? false : true
   })
   .then(function(data) {
-    post = data.toJSON()
-    var mark = (post.publish) ? 'published' : 'drafted'
+    var post = data.toJSON(),
+        mark = (post.publish) ? 'published' : 'drafted'
     req.flash('info', 'New post has been created and mark as ' + mark + ' post.')
     res.redirect('/backend/posts/user')
   })
@@ -100,11 +100,11 @@ PostsController.route('/edit/:pid')
         content: item.content,
         dd_link: item.ddl,
         anime_id: item.anime,
-        publish: (item.publish == "false") ? false : true
+        publish: (item.publish === "false") ? false : true
       })
       .then(function(data) {
-        post = data.toJSON()
-        var mark = (post.publish) ? 'published' : 'drafted'
+        var post = data.toJSON(),
+            mark = (post.publish) ? 'published' : 'drafted'
         req.flash('info', 'The post has been updated and mark as ' + mark + ' post.')
         res.redirect('/backend/posts/all')
       })
@@ -123,11 +123,11 @@ PostsController.route('/edit/:pid')
         content: item.content,
         dd_link: item.ddl,
         anime_id: item.anime,
-        publish: (item.publish == "false") ? false : true
+        publish: (item.publish === "false") ? false : true
       })
       .then(function(data) {
-        post = data.toJSON()
-        var mark = (post.publish) ? 'published' : 'drafted'
+        var post = data.toJSON(),
+            mark = (post.publish) ? 'published' : 'drafted'
         req.flash('info', 'The post has been updated and mark as ' + mark + ' post.')
         res.redirect('/backend/posts/user')
       })

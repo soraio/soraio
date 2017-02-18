@@ -21,15 +21,15 @@ PagesController.route('/add')
   .where({title: item.title})
   .fetchAll({require: true})
   .then(function(pages) {
-    var pages = pages.toJSON(),
-        index = pages.length++
+    pages = pages.toJSON()
+    var index = pages.length++
     Page
     .create({
       title: item.title,
       slug: slugifies(item.title + '-' + index, {lower: true}),
       user_id: req.user.id,
       content: item.content,
-      publish: (item.publish == "false") ? false : true
+      publish: (item.publish === "false") ? false : true
     })
     .then(function(page) {
       req.flash('info', 'Page ' + item.title + ' has been created.')
@@ -47,7 +47,7 @@ PagesController.route('/add')
       slug: slugifies(item.title, {lower: true}),
       user_id: req.user.id,
       content: item.content,
-      publish: (item.publish == "false") ? false : true
+      publish: (item.publish === "false") ? false : true
     })
     .then(function(page) {
       req.flash('info', 'Page ' + item.title + ' has been created.')
@@ -78,8 +78,8 @@ PagesController.route('/edit/:pid')
   .where({title: item.title})
   .fetchAll({require: true})
   .then(function(pages) {
-    var pages = pages.toJSON(),
-        index = pages.length++
+    pages = pages.toJSON()
+    var index = pages.length++
     Page
     .upsert({
       id: item.pid
@@ -89,7 +89,7 @@ PagesController.route('/edit/:pid')
       slug: slugifies(item.title + '-' + index, {lower: true}),
       user_id: req.user.id,
       content: item.content,
-      publish: (item.publish == "false") ? false : true
+      publish: (item.publish === "false") ? false : true
     })
     .then(function(page) {
       var mark = (page.publish) ? 'published' : 'drafted'
@@ -111,7 +111,7 @@ PagesController.route('/edit/:pid')
       slug: slugifies(item.title, {lower: true}),
       user_id: req.user.id,
       content: item.content,
-      publish: (item.publish == "false") ? false : true
+      publish: (item.publish === "false") ? false : true
     })
     .then(function(page) {
       req.flash('info', 'Page ' + item.title + ' has been updated.')

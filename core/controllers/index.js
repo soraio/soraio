@@ -50,10 +50,11 @@ IndexController.route('/posts/:slug')
   Post
   .fetchAll({withRelated: ['user', 'project']})
   .then(function(posts) {
+    var post = false, pages
     posts = posts.toJSON()
     for (var i = 0; i < posts.length; i++) {
       if (posts[i].slug === slug && posts[i].publish){
-        var post = posts[i],
+            post = posts[i]
             pages = {
               uri: req.baseUrl,
               next: posts[i+1] ? posts[i+1].slug : false,
@@ -83,10 +84,11 @@ IndexController.route('/pages/:slug')
   Page
   .fetchAll({withRelated: ['user']})
   .then(function(posts) {
+    var post = false, pages
     posts = posts.toJSON()
     for (var i = 0; i < posts.length; i++) {
       if (posts[i].slug === slug){
-        var post = posts[i],
+            post = posts[i]
             pages = {
               uri: req.baseUrl,
               next: posts[i+1] ? posts[i+1].slug : false,

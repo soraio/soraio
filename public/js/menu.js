@@ -46,13 +46,15 @@ $(document).ready(function() {
     $(this).closest('.menu-items').remove()
     menuUpdate()
   })
-  Sortable.create($('.site-menu')[0], {
-    group: "site-menu",
-    handle: ".drag-handle",
-    store: {
-      set: function (sortable) {
-        menuUpdate()
+  if($('.site-menu').length){
+    Sortable.create($('.site-menu')[0], {
+      group: "site-menu",
+      handle: ".drag-handle",
+      store: {
+        set: function (sortable) {
+          menuUpdate()
+        }
       }
-    }
-  })
+    })
+  }
 })

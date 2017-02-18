@@ -8,7 +8,7 @@ module.exports = {
     * - staging
     * - production
     */
-  environment: 'development',
+  environment: 'production',
   port: 3000,
 
   /**
@@ -20,16 +20,10 @@ module.exports = {
     * @param databaseName {string} - Your Database Name
     */
 
-  // databaseHost      : 'localhost',
-  // databaseUsername  : 'user',
-  // databasePassword  : 'pass',
-  // databaseName      : 'database_name'
-
-  dbPrefix: 'sora_',
+  dbPrefix          : 'sora_',
   databaseHost      : 'localhost',
-  databaseUsername  : 'onlineak',
-  databasePassword  : 'indo12soft345',
-  databaseName      : 'Sorairo_Fansub'
-
+  databaseUsername  : 'root',
+  databasePassword  : 'labs-zdumb',
+  databaseName      : 'sorairo_fansub'
 
 }
