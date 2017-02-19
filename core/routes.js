@@ -15,7 +15,8 @@ var express = require('express'),
     SettingsController = require('./controllers/settings'),
     ProfileController = require('./controllers/profile'),
     ApiController = require('./controllers/api'),
-    csrf = require('csurf')
+    csrf = require('csurf'),
+    Log = require('./models/log')
 
 /**
   * Routing the controllers.
@@ -23,6 +24,11 @@ var express = require('express'),
 // Public section
 route.use('/', IndexController)
 route.use('/downloads', DownloadsController)
+route.use('/profile', ProfileController, function(req, res, next) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  Log.create({type: 'home', related_id: 0, ip: ip})
+  return next()
+})
 
 // Secure section, needs authenticated user to access this rules
 route.use('/backend[\/]?*', ensureAuthenticated, function(req, res, next) {
@@ -52,7 +58,6 @@ route.use('/backend/+(users/+(add|delete|edit)+/:pid?|settings)', function(req, 
   }
 })
 route.post('/api/menu', ensureAuthenticated)
-route.use('/profile', ProfileController)
 route.use('/api', ApiController)
 route.use('/backend/dashboard', DashboardController)
 route.use('/backend/posts', PostsController)
@@ -63,7 +68,11 @@ route.use('/backend/settings', SettingsController)
 
 // Secure section, needs csrftoken to access this rules
 route.use(csrf({ cookie: true }))
-route.use('/auth', AuthController)
+route.use('/auth', function(req, res, next) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  Log.create({type: 'home', related_id: 0, ip: ip})
+  return next()
+}, AuthController)
 
 /**
   * Function to ensure if the client is authenticated
