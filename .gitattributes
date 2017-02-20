@@ -9,6 +9,11 @@
 #
 
 #
+## These will be known as vendored path
+#
+public/* linguist-vendored
+
+#
 ## These files are text and should be normalized (Convert crlf => lf)
 #
 

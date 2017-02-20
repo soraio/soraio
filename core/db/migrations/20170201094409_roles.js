@@ -4,8 +4,8 @@ exports.up = function(knex, Promise) {
     table.increments('id').primary()
     table.string('role')
   })
-};
+}
 
 exports.down = function(knex, Promise) {
   return knex.schema.dropTableIfExists(dbPrefix + 'roles')
-};
+}

@@ -6,8 +6,8 @@ exports.up = function(knex, Promise) {
     table.json('value')
     table.timestamps()
   })
-};
+}
 
 exports.down = function(knex, Promise) {
   return knex.schema.dropTableIfExists(dbPrefix + 'menus')
-};
+}
