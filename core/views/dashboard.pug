@@ -8,9 +8,45 @@ block body
           .card.sameheight-item.items.stats(data-exclude="xs,sm,lg")
             .card-header.card-header-sm.bordered
               .header-block
-                h3.title Panel 1
+                h3.title Stats
             .card-block
-              | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              .row.row-sm.stats-container
+                .col-xs-12.col-sm-6.stat-col
+                  .stat-icon
+                    i.fa.fa-eye
+                  .stat
+                    .value= chart.views
+                    .name Visitors
+                  progress.progress.stat-progress(value="100", max="100")
+                    .progress
+                      span.progress-bar(style="width: 100%;")
+                .col-xs-12.col-sm-6.stat-col
+                  .stat-icon
+                    i.fa.fa-cloud-download
+                  .stat
+                    .value= chart.downloads
+                    .name Downloads
+                  progress.progress.stat-progress(value="100", max="100")
+                    .progress
+                      span.progress-bar(style="width: 100%;")
+                .col-xs-12.col-sm-6.stat-col
+                  .stat-icon
+                    i.fa.fa-calendar-o
+                  .stat
+                    .value= moment(new Date()).format('DD MMM, YYYY')
+                    .name Current date
+                  progress.progress.stat-progress(value="100", max="100")
+                    .progress
+                      span.progress-bar(style="width: 100%;")
+                .col-xs-12.col-sm-6.stat-col
+                  .stat-icon
+                    i.fa.fa-users
+                  .stat
+                    .value= user_total
+                    .name Total users
+                  progress.progress.stat-progress(value="100", max="100")
+                    .progress
+                      span.progress-bar(style="width: 100%;")
         .col-xl-7
           .card.sameheight-item.items(data-exclude="xs,sm,lg")
             .card-header.card-header-sm.bordered
