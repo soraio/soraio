@@ -19,6 +19,7 @@ SettingsController.route('/')
   Setting.upsert({key: 'site_favicon'}, {value: data.siteFavicon})
   Setting.upsert({key: 'site_page_rows'}, {value: data.sitePageRows})
   Setting.upsert({key: 'disqus_shortname'}, {value: data.disqusShortname})
+  Setting.upsert({key: 'disqus_secret'}, {value: data.disqusSecretApi})
   return res.redirect('/backend/settings')
 })
 
