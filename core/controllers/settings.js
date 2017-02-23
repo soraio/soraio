@@ -23,4 +23,12 @@ SettingsController.route('/')
   return res.redirect('/backend/settings')
 })
 
+SettingsController.route('/notifications')
+.post(function(req, res, next) {
+  var data = req.body
+  req.flash('info', 'Success saving current site notifications.')
+  Setting.upsert({key: 'site_notif'}, {value: data.siteNotif})
+  return res.redirect('/backend/dashboard')
+})
+
 module.exports = SettingsController

@@ -29,6 +29,11 @@ main.content
                         button.btn.btn-sora.form-control(type="submit") Send
     .row
       .col-md-8.col-md-offset-2.col-xs-12
+        if(site_notif && site_notif != "" || site_notif && site_notif != null)
+          .alert.info
+            span.closebtn &times;
+            .alhead= 'Info! '
+            p= site_notif
         section.content-inner.margin-top-no
           .card
             .card-main
