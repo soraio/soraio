@@ -18,5 +18,8 @@ script.
   }());
 script.
   $(window).load(function() {
-  $('#ui_modal_msg_default').modal('show');
+    $('.closebtn').on('click', function(){
+      $(this).parent().fadeOut();
+    });
+    $('#ui_modal_msg_default').modal('show');
   });

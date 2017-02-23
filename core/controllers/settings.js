@@ -19,7 +19,16 @@ SettingsController.route('/')
   Setting.upsert({key: 'site_favicon'}, {value: data.siteFavicon})
   Setting.upsert({key: 'site_page_rows'}, {value: data.sitePageRows})
   Setting.upsert({key: 'disqus_shortname'}, {value: data.disqusShortname})
+  Setting.upsert({key: 'disqus_secret'}, {value: data.disqusSecretApi})
   return res.redirect('/backend/settings')
+})
+
+SettingsController.route('/notifications')
+.post(function(req, res, next) {
+  var data = req.body
+  req.flash('info', 'Success saving current site notifications.')
+  Setting.upsert({key: 'site_notif'}, {value: data.siteNotif})
+  return res.redirect('/backend/dashboard')
 })
 
 module.exports = SettingsController

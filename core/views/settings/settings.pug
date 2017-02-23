@@ -24,9 +24,13 @@ block body
           .col-sm-9
             input.form-control.underlined(type="text", name="siteFavicon", placeholder="Site Favicon", value=site_favicon)
         .form-group.row
-          label.col-sm-3.form-control-label.text-xs-right(for="siteFavicon") Disqus Shortname:
+          label.col-sm-3.form-control-label.text-xs-right(for="disqusShortname") Disqus Shortname:
           .col-sm-9
             input.form-control.underlined(type="text", name="disqusShortname", placeholder="Disqus Shortname", value=disqus_shortname)
+        .form-group.row
+          label.col-sm-3.form-control-label.text-xs-right(for="disqusSecretApi") Disqus Secret API:
+          .col-sm-9
+            input.form-control.underlined(type="text", name="disqusSecretApi", placeholder="Disqus Secret API", value=disqus_secret)
         .form-group.row
           label.col-sm-3.form-control-label.text-xs-right(for="sitePageRows") Pagination:
           .col-sm-1

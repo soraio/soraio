@@ -10,7 +10,9 @@ exports.seed = function(knex, Promise) {
         knex(dbPrefix + 'settings').insert({key: 'site_irc', value: '#Sora-Iro@irc.rizon.net', created_at: new Date(), updated_at: new Date()}),
         knex(dbPrefix + 'settings').insert({key: 'site_favicon', value: 'favicon.ico', created_at: new Date(), updated_at: new Date()}),
         knex(dbPrefix + 'settings').insert({key: 'site_page_rows', value: 10, created_at: new Date(), updated_at: new Date()}),
-        knex(dbPrefix + 'settings').insert({key: 'disqus_shortname', value: 'sora-iro', created_at: new Date(), updated_at: new Date()})
+        knex(dbPrefix + 'settings').insert({key: 'site_notif', value: null, created_at: new Date(), updated_at: new Date()}),
+        knex(dbPrefix + 'settings').insert({key: 'disqus_shortname', value: 'sora-iro', created_at: new Date(), updated_at: new Date()}),
+        knex(dbPrefix + 'settings').insert({key: 'disqus_secret', value: null, created_at: new Date(), updated_at: new Date()})
       ])
     })
 }
