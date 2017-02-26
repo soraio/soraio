@@ -1,6 +1,6 @@
 {
   "name": "soraio",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha0",
   "description": "An app for Fansubs Management System",
   "main": "app.js",
   "scripts": {
