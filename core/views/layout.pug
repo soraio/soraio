@@ -3,8 +3,14 @@ html(lang="en")
   head
     include partials/meta
     title
-      if title
-        = title + ' | ' + site_title
+      if post
+        = post.title + ' | ' + site_title
+      else if project
+        = project.title + ' | ' + site_title
+      else if download
+        = download.title + ' | ' + site_title
+      else if page
+        = page.title + ' | ' + site_title
       else
         = site_title
     // css

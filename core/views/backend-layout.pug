@@ -244,9 +244,48 @@ html.no-js(lang="en")
     script(src="/js/vendor.js")
     script(src="/node_modules/jquery-lazyload/jquery.lazyload.js")
     script(src="/node_modules/sortablejs/Sortable.min.js")
+    script(src="/node_modules/moment/min/moment.min.js")
     script(src="/js/app.js")
     script(src="/js/menu.js")
     script(src="/js/letterAvatar.js")
+    script.
+      var disqus_popular = 'https://disqus.com/api/3.0/threads/listPopular.json?api_key=#{disqus_secret}&forum=#{disqus_shortname}&limit=10&interval=90d&callback=?';
+      var disqus_recent = 'https://disqus.com/api/3.0/forums/listPosts.json?api_key=#{disqus_secret}&forum=#{disqus_shortname}&limit=10&related=thread&callback=?';
+      $.getJSON(disqus_popular)
+      .done(function( json ) {
+        console.log( json.response );
+        var items = [];
+        $.each( json.response, function( i, item ) {
+          item.posts = (parseInt(item.posts) === 1) ? item.posts + ' Comment' : item.posts + ' Comments';
+          item.createdAt = moment(item.createdAt).format("DD MMM, YYYY - HH:mm");
+          items.push('<li class="item"><div class="item-row"><div class="item-col fixed item-col-img xs"><a href="'+item.link+'"><img class="item-img xs rounded" avatar="'+item.clean_title+'"></a></div><div class="item-col item-col-title no-overflow"><div><a href="'+item.link+'"><h4 class="item-title no-wrap"> '+ item.clean_title +'</h4></a></div></div><div class="item-col item-col-comments"><div class="item-heading">Comments</div><div>'+ item.posts +'</div></div><div class="item-col item-col-date"><div class="item-heading">First View</div><div>'+item.createdAt+'</div></div></div></li>');
+        });
+        $('ul.popular').html(items.join(""));
+        LetterAvatar.transform();
+        setSameHeights();
+      })
+      .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        $('ul.popular').html('<li class="item"><div class="item-row"><div class="item-col text-center">You must to set up Disqus Public API first to get this feature active.</div></div></li>');
+        console.log( "Request Failed: " + err );
+      });
+      $.getJSON(disqus_recent)
+      .done(function( json ) {
+        console.log( json.response );
+        var items = [];
+        $.each( json.response, function( i, item ) {
+          item.createdAt = moment(item.createdAt).format("DD MMM HH:mm");
+          items.push('<li class="item"><div class="item-row"><div class="item-col fixed item-col-img xs"><a href="'+item.author.profileUrl+'"><div class="item-img xs rounded" style="background-image: url('+item.author.avatar.permalink+');"></div></a></div><div class="item-col item-col-title no-overflow"><div><a href="'+item.thread.link+'#comment-'+item.id+'"><h4 class="item-title no-wrap"> '+item.raw_message+'</h4></a></div></div><div class="item-col item-col-date"><div class="item-heading">Date</div><div style="font-size:10pt;"> '+item.createdAt+'</div></div></div></li>');
+        });
+        $('ul.recent-comments').html(items.join(""));
+        LetterAvatar.transform();
+        setSameHeights();
+      })
+      .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        $('ul.recent-comments').html('<li class="item"><div class="item-row"><div class="item-col text-center">You must to set up Disqus Public API first to get this feature active.</div></div></li>');
+        console.log( "Request Failed: " + err );
+      });
     if message && message.length
       script.
         $(window).load(function() {

@@ -43,6 +43,8 @@ main.content
                     h1.card-heading= post.title
                   else if project
                     h1.card-heading= project.title
+                  else if page
+                    h1.card-heading= page.title
                   else if download
                     h1.card-heading= 'Download: ' + download.title
                   else
