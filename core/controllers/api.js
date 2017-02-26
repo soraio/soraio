@@ -50,10 +50,18 @@ ApiController.route('/chats')
 
 ApiController.route('/menu')
 .post(function(req, res, next) {
+  if(!req.user){
+    var err = new Error('Not Found')
+    err.status = 404
+    next(err)
+  }
   Menu
   .upsert({key: 'menu_parents'}, {value: req.body.menu_parents})
   .then(function(parent) {
     return res.json(parent.toJSON())
+  })
+  .catch(function(err) {
+    next(err)
   })
 })
 module.exports = ApiController

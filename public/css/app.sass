@@ -1688,6 +1688,11 @@ label, .control-label
           &.view
             color: #CF941C
 
+  img
+    &.item-img
+      height: auto
+      padding-bottom: 0
+
 @media (min-width: 992px) and (max-width: 1199px)
   .item-list
     font-size: 1rem
@@ -1830,11 +1835,9 @@ label, .control-label
 a:not(.btn)
   -webkit-transition: initial
   transition: initial
-  text-decoration: underline
   color: #969696
 
   &:hover
-    text-decoration: underline
     color: #70b02b
 
     &:before
