@@ -14,6 +14,7 @@ This repository is a Fansub Site that was built on nodejs, expressjs, bookshelf 
 First, you need to clone this repository and install all required dependencies.
 ```sh
 $ git clone https://github.com/soraio/soraio.git
+$ sudo apt-get install -y unicode-data
 $ npm install
 ```
 Then, migrate and seed the databases then start the engine.
