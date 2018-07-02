@@ -9,7 +9,8 @@
     "start": "node app",
     "test": "mocha --timeout 15000",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "npm run snyk-protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "anime",
@@ -45,7 +46,7 @@
     "slug": "^0.9.1",
     "sortablejs": "^1.5.0-rc1",
     "sqlite3": "^4.0.0",
-    "snyk": "^1.47.0"
+    "snyk": "^1.88.0"
   },
   "devDependencies": {
     "knex": "^0.12.6",
