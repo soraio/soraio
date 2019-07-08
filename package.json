@@ -31,7 +31,7 @@
     "express-session": "^1.14.2",
     "jquery-lazyload": "^1.9.7",
     "knex": "^0.12.6",
-    "marked": "^0.3.6",
+    "marked": "^0.4.0",
     "method-override": "^2.3.6",
     "moment": "^2.16.0",
     "mysql": "^2.12.0",
@@ -45,7 +45,7 @@
     "slug": "^0.9.1",
     "sortablejs": "^1.5.0-rc1",
     "sqlite3": "^4.0.0",
-    "snyk": "^1.47.0"
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "knex": "^0.12.6",
