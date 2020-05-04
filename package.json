@@ -45,7 +45,7 @@
     "slug": "^0.9.1",
     "sortablejs": "^1.5.0-rc1",
     "sqlite3": "^4.0.0",
-    "snyk": "^1.47.0"
+    "snyk": "^1.317.0"
   },
   "devDependencies": {
     "knex": "^0.12.6",
