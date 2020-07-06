@@ -18,7 +18,7 @@
   "author": "Eries Trisnadi <zdumb1885@outlook.com>",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^1.0.2",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.15.2",
     "bookshelf": "^0.10.2",
     "bookshelf-modelbase": "^2.10.1",
