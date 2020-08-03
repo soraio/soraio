@@ -31,7 +31,7 @@
     "express-session": "^1.14.2",
     "jquery-lazyload": "^1.9.7",
     "knex": "^0.12.6",
-    "marked": "^0.3.6",
+    "marked": "^1.1.1",
     "method-override": "^2.3.6",
     "moment": "^2.16.0",
     "mysql": "^2.12.0",
