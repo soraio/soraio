@@ -39,7 +39,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "passport-remember-me": "0.0.1",
-    "pug": "^2.0.0-beta6",
+    "pug": "^3.0.1",
     "request": "^2.79.0",
     "simplemde": "^1.11.2",
     "slug": "^0.9.1",
