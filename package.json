@@ -35,7 +35,7 @@
     "method-override": "^2.3.6",
     "moment": "^2.16.0",
     "mysql": "^2.12.0",
-    "node-sass-middleware": "^0.11.0",
+    "node-sass-middleware": "^1.0.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "passport-remember-me": "0.0.1",
