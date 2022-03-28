@@ -30,7 +30,7 @@
     "express": "^5.0.0-alpha.2",
     "express-session": "^1.14.2",
     "jquery-lazyload": "^1.9.7",
-    "knex": "^0.12.6",
+    "knex": "^0.16.4",
     "marked": "^0.3.6",
     "method-override": "^2.3.6",
     "moment": "^2.16.0",
@@ -48,7 +48,7 @@
     "snyk": "^1.47.0"
   },
   "devDependencies": {
-    "knex": "^0.12.6",
+    "knex": "^0.16.4",
     "mocha": "^3.1.2",
     "mocha-jshint": "^2.3.1",
     "should": "^11.1.1",
